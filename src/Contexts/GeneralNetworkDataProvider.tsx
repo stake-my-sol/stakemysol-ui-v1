@@ -9,10 +9,8 @@ import {
 } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { GeneralNetworkDataState } from "../@types/types";
-import { GENERAL_NETWORK_DATA_STATE_KEY } from "../Constants";
 import { NetworkContext } from "./NetworkProvider";
 import stakeMySolAxios from "../axios-instances";
-import useLocalStorage from "../hooks/useLocalStorage";
 
 interface GeneralNetworkDataProviderProps {
   children: ReactNode | ReactNode[];

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Stack, Paper } from "@mui/material";
+import { Stack, Paper, Typography } from "@mui/material";
 import SingleValidatorResult from "./SingleValidatorResult";
 import { Validator } from "../@types/types";
 
@@ -15,7 +15,11 @@ function ValidatorsResult({
   let renderedValidators;
 
   if (_.isEmpty(validators)) {
-    renderedValidators = <Paper>Loading .....</Paper>;
+    renderedValidators = (
+      <Paper sx={{ minHeight: "20rem" }}>
+        <Typography textAlign="center">Loading .....</Typography>
+      </Paper>
+    );
   } else {
     renderedValidators = validators.map((validator: any) => (
       <SingleValidatorResult

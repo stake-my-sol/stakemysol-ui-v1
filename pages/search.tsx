@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -8,17 +8,22 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SearchForm from "../src/Components/SearchPage/SearchForm";
-import PaymentForm from "../src/Components/SearchPage/PaymentForm";
+import ValidatorsSelection from "../src/Components/SearchPage/ValidatorsSelection";
 import Review from "../src/Components/SearchPage/Review";
+import { Validator } from "../src/@types/types";
 
 const steps = ["Search Form", "Delegation", "Review"];
 
-function getStepContent(step: number) {
+function getStepContent(
+  step: number,
+  foundValidators: Validator[],
+  setFoundValidators: Dispatch<SetStateAction<Validator[]>>,
+) {
   switch (step) {
     case 0:
-      return <SearchForm />;
+      return <SearchForm setFoundValidators={setFoundValidators} />;
     case 1:
-      return <PaymentForm />;
+      return <ValidatorsSelection foundValidators={foundValidators} />;
     case 2:
       return <Review />;
     default:
@@ -28,6 +33,7 @@ function getStepContent(step: number) {
 
 export default function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
+  const [foundValidators, setFoundValidators] = useState<Validator[]>([]);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -43,9 +49,6 @@ export default function Checkout() {
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
-        <Typography component="h1" variant="h4" align="center">
-          Search
-        </Typography>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
             <Step key={label}>
@@ -66,7 +69,7 @@ export default function Checkout() {
           </>
         ) : (
           <>
-            {getStepContent(activeStep)}
+            {getStepContent(activeStep, foundValidators, setFoundValidators)}
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>

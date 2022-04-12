@@ -1,15 +1,24 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Dispatch, SetStateAction } from "react";
 import { Container, Button, Typography } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import TextField from "@mui/material/TextField";
+import ValidatorsCountInput from "./ValidatorsCountInput";
 import stakeMySolAxios from "../../axios-instances";
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 import { GeneralNetworkDataContext } from "../../Contexts/GeneralNetworkDataProvider";
 
-import { SearchFormSelectOption, SoftwareVersion } from "../../@types/types";
+import {
+  SearchFormSelectOption,
+  SoftwareVersion,
+  Validator,
+} from "../../@types/types";
 
-function SearchPage() {
+interface SearchPageProps {
+  setFoundValidators: Dispatch<SetStateAction<Validator[]>>;
+}
+
+function SearchPage({ setFoundValidators }: SearchPageProps) {
   const { network } = useContext(NetworkContext)!;
 
   const generalNetworkData = useContext(GeneralNetworkDataContext);
@@ -62,6 +71,7 @@ function SearchPage() {
     });
   }
 
+  const [validatorsCount, setValidatorsCount] = useState<string>("5");
   const [selectedNames, setSelectedNames] = useState();
   const [selectedAsns, setSelectedAsns] = useState();
   const [selectedDatacenters, setSelectedDatacenters] = useState();
@@ -95,32 +105,37 @@ function SearchPage() {
     const abortController = new AbortController();
     const reqNetwork =
       network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
+
     const reqBody = {
       network: reqNetwork,
       query: {
-        count: 10,
+        count: Number(validatorsCount),
         names: selectedNames,
         asns: selectedAsns,
         dataCenters: selectedDatacenters,
         softwareVersions: selectedSoftwareVersions,
       },
     };
+
     const { data } = await stakeMySolAxios.post("/search/search-validators", {
       signal: abortController.signal,
       data: reqBody,
     });
     console.log(
-      "🚀 ~ file: SearchPage.tsx ~ line 41 ~ searchHandler ~ data",
+      "🚀 ~ file: SearchForm.tsx ~ line 129 ~ searchHandler ~ data",
       data,
     );
+
+    setFoundValidators(data);
   };
 
   return (
     <Container maxWidth="sm">
       <form onSubmit={searchHandler}>
-        <TextField
-          type="number"
-          // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+        <Typography>Count: </Typography>
+        <ValidatorsCountInput
+          value={validatorsCount}
+          setValue={setValidatorsCount}
         />
         <Typography>Name: </Typography>
         <Autocomplete
@@ -158,7 +173,6 @@ function SearchPage() {
           filterSelectedOptions
           renderInput={(params) => <TextField {...params} />}
         />
-
         <Button
           sx={{ mt: 2 }}
           type="submit"
