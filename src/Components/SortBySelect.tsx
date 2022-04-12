@@ -50,6 +50,13 @@ function SortBySelect({ sortBy, setSortBy }: SortBySelectProps) {
       <FormControl fullWidth>
         <Select
           id="sort-validators-by-select"
+          sx={{
+            textAlign: "center",
+            "& .MuiFilledInput-input": {
+              paddingX: 0,
+              paddingY: 1.5,
+            },
+          }}
           value={sortBy}
           onChange={handleChange}
           variant="filled"

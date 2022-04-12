@@ -30,6 +30,13 @@ function SortDirection({ sortDir, setSortDir }: SortDirectionProps) {
       <FormControl fullWidth>
         <Select
           id="sort-direction-select"
+          sx={{
+            textAlign: "center",
+            "& .MuiFilledInput-input": {
+              paddingX: 0,
+              paddingY: 1.5,
+            },
+          }}
           value={sortDir.toString()}
           onChange={handleChange}
           variant="filled"

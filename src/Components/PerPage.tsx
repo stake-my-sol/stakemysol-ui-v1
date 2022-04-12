@@ -50,6 +50,13 @@ function PerPage({ perPage, setPerPage }: PerPageProps) {
       <FormControl fullWidth>
         <Select
           id="sort-validators-by-select"
+          sx={{
+            textAlign: "center",
+            "& .MuiFilledInput-input": {
+              paddingX: 0,
+              paddingY: 1.5,
+            },
+          }}
           value={perPage.toString()}
           onChange={handleChange}
           variant="filled"
