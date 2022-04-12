@@ -5,6 +5,7 @@ import {
   useEffect,
   useContext,
   useMemo,
+  useState,
 } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { GeneralNetworkDataState } from "../@types/types";
@@ -32,27 +33,46 @@ function GeneralNetworkDataProvider({
   children,
 }: GeneralNetworkDataProviderProps) {
   const { network } = useContext(NetworkContext)!;
-  const [generalNetworkData, setGeneralNetworkData] = useLocalStorage(
-    GENERAL_NETWORK_DATA_STATE_KEY,
-    {
-      mainnet: {
-        count: null,
-        names: null,
-        asns: null,
-        softwareVersions: null,
-        dataCenters: null,
-        updatedAt: null,
-      },
-      testnet: {
-        count: null,
-        names: null,
-        asns: null,
-        softwareVersions: null,
-        dataCenters: null,
-        updatedAt: null,
-      },
+  // const [generalNetworkData, setGeneralNetworkData] = useLocalStorage(
+  //   GENERAL_NETWORK_DATA_STATE_KEY,
+  //   {
+  //     mainnet: {
+  //       count: null,
+  //       names: null,
+  //       asns: null,
+  //       softwareVersions: null,
+  //       dataCenters: null,
+  //       updatedAt: null,
+  //     },
+  //     testnet: {
+  //       count: null,
+  //       names: null,
+  //       asns: null,
+  //       softwareVersions: null,
+  //       dataCenters: null,
+  //       updatedAt: null,
+  //     },
+  //   },
+  // );
+
+  const [generalNetworkData, setGeneralNetworkData] = useState({
+    mainnet: {
+      count: null,
+      names: null,
+      asns: null,
+      softwareVersions: null,
+      dataCenters: null,
+      updatedAt: null,
     },
-  );
+    testnet: {
+      count: null,
+      names: null,
+      asns: null,
+      softwareVersions: null,
+      dataCenters: null,
+      updatedAt: null,
+    },
+  });
 
   // *: Here an update function get attached to
   // *: refetch the data after the specified time

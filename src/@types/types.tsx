@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 export type SelectedValidatorsActions =
@@ -124,4 +125,15 @@ export interface GeneralNetworkDataState extends GeneralNetworkData {
 export interface IGeneralNetworkDataContext {
   testnet: GeneralNetworkDataState;
   mainnet: GeneralNetworkDataState;
+}
+
+export interface NetworkState {
+  network: WalletAdapterNetwork;
+}
+
+export interface NetworkReducerAction {
+  type: string;
+  payload?: {
+    network: WalletAdapterNetwork;
+  };
 }
