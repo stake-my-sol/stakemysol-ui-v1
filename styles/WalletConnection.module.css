@@ -1,0 +1,19 @@
+.customBtn {
+  padding: 0.1rem;
+  font-size: 0.45rem;
+  background-color: #512da8;
+}
+
+@media screen and (min-width: 370px) {
+  .customBtn {
+    font-size: 0.7rem;
+    padding: 0.4rem;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .customBtn {
+    font-size: 1rem;
+    padding: 24px;
+  }
+}
