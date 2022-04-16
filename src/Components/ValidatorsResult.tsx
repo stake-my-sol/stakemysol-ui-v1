@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { Stack, Paper, Typography } from "@mui/material";
-import SingleValidatorResult from "./SingleValidatorResult";
+import SingleValidatorResult from "./SingleValidatorResult/SingleValidatorResult";
 import { Validator } from "../@types/types";
 
 interface ValidatorsResultProps {

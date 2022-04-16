@@ -8,10 +8,11 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { SelectedValidatorsContext } from "../Contexts/SelectedValidatorsProvider";
-import { NetworkContext } from "../Contexts/NetworkProvider";
+import { SelectedValidatorsContext } from "../../Contexts/SelectedValidatorsProvider";
+import { NetworkContext } from "../../Contexts/NetworkProvider";
 
-import { Validator, ISelectedValidatorsContext } from "../@types/types";
+import { Validator, ISelectedValidatorsContext } from "../../@types/types";
+import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
 
 interface SingleValidatorResultProps {
   validator: Validator;
@@ -56,6 +57,7 @@ function SingleValidatorResult({
   }
   return (
     <Paper sx={{ backgroundColor: "grey.50", flexGrow: 1, padding: 1 }}>
+      {/* <SingleValidatorResultSkeleton /> */}
       <Grid direction="column" container>
         <Grid
           container

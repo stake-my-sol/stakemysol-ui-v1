@@ -32,9 +32,14 @@ function CommissionsChart({ chartData }: CommissionChartProps) {
   if (_.isEmpty(chartData)) {
     // do sth
   } else {
-    chartData!.forEach((entry) => {
-      epochs.push(entry.epoch!);
-      commissions.push(entry.commission!);
+    chartData!.slice(-13).forEach((entry) => {
+      if (!_.isNil(entry.epoch)) {
+        epochs.push(entry.epoch);
+      }
+
+      if (!_.isNil(entry.commission)) {
+        commissions.push(entry.commission);
+      }
     });
   }
 

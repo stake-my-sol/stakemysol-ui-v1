@@ -32,9 +32,18 @@ function VotePerformanceChart({ chartData }: CommissionChartProps) {
   if (_.isEmpty(chartData)) {
     // do sth
   } else {
-    chartData!.forEach((entry) => {
-      epochs.push(entry.epoch!);
-      votePerformances.push(Number((entry.performance! * 100).toFixed(1)));
+    chartData!.slice(-13).forEach((entry) => {
+      if (!_.isNil(entry.epoch)) {
+        epochs.push(entry.epoch);
+      } else {
+        return;
+      }
+
+      if (!_.isNil(entry.performance)) {
+        votePerformances.push(Number((entry.performance * 100).toFixed(1)));
+      } else {
+        votePerformances.push(0);
+      }
     });
   }
 

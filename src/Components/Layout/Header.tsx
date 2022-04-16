@@ -10,8 +10,8 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import WalletConnection from "./WalletConnection";
-import NetworksMenu from "./NetworksMenu";
+import WalletConnection from "../WalletConnection";
+import NetworksMenu from "../NetworksMenu";
 
 const pages = [
   { label: "Validators", to: "/validators" },

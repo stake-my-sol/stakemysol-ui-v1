@@ -3,8 +3,9 @@ import { Box, Fab } from "@mui/material";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { makeStyles } from "@mui/styles";
 import useToggle from "../../hooks/useToggle";
-import Header from "../Header";
+import Header from "./Header";
 import SelectedValidatorsDrawer from "../SelectedValidatorsDrawer";
+import Footer from "./Footer";
 
 interface LayoutProps {
   children: ReactNode | ReactNode[];
@@ -51,7 +52,7 @@ function Layout({ children }: LayoutProps) {
         <ShoppingBasketIcon />
       </Fab>
 
-      {/* footer */}
+      <Footer />
     </Box>
   );
 }

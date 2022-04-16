@@ -7,7 +7,11 @@ import {
 function WalletConnection() {
   const { publicKey } = useWallet();
 
-  return publicKey ? <WalletDisconnectButton /> : <WalletMultiButton />;
+  return publicKey ? (
+    <WalletDisconnectButton>Disconnect</WalletDisconnectButton>
+  ) : (
+    <WalletMultiButton>Connect</WalletMultiButton>
+  );
 }
 
 export default WalletConnection;

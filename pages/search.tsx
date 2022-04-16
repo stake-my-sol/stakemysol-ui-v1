@@ -1,4 +1,5 @@
 import { useState, Dispatch, SetStateAction } from "react";
+import Head from "next/head";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -44,49 +45,55 @@ export default function Checkout() {
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <Paper
-        variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-      >
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+    <>
+      <Head>
+        <title>Search Page</title>
+      </Head>
 
-        {activeStep === steps.length ? (
-          <>
-            <Typography variant="h5" gutterBottom>
-              You staked your sol successfully
-            </Typography>
-            <Typography variant="subtitle1">
-              For reviewing your current stakes, you can visit &quot;Your
-              Stakes&quot; page.
-            </Typography>
-          </>
-        ) : (
-          <>
-            {getStepContent(activeStep, foundValidators, setFoundValidators)}
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                  Back
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Paper
+          variant="outlined"
+          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+        >
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+
+          {activeStep === steps.length ? (
+            <>
+              <Typography variant="h5" gutterBottom>
+                You staked your sol successfully
+              </Typography>
+              <Typography variant="subtitle1">
+                For reviewing your current stakes, you can visit &quot;Your
+                Stakes&quot; page.
+              </Typography>
+            </>
+          ) : (
+            <>
+              {getStepContent(activeStep, foundValidators, setFoundValidators)}
+              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    Back
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{ mt: 3, ml: 1 }}
+                >
+                  {activeStep === steps.length - 1 ? "Place order" : "Next"}
                 </Button>
-              )}
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{ mt: 3, ml: 1 }}
-              >
-                {activeStep === steps.length - 1 ? "Place order" : "Next"}
-              </Button>
-            </Box>
-          </>
-        )}
-      </Paper>
-    </Container>
+              </Box>
+            </>
+          )}
+        </Paper>
+      </Container>
+    </>
   );
 }
