@@ -8,12 +8,12 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import SearchForm from "../src/Components/SearchPage/SearchForm";
+import SearchForm from "../src/Components/SearchPage/SearchForm/SearchForm";
 import ValidatorsSelection from "../src/Components/SearchPage/ValidatorsSelection";
 import Review from "../src/Components/SearchPage/Review";
 import { Validator } from "../src/@types/types";
 
-const steps = ["Search Form", "Delegation", "Review"];
+const steps = ["Search", "Delegation", "Review"];
 
 function getStepContent(
   step: number,
@@ -58,7 +58,21 @@ export default function Checkout() {
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel
+                  sx={(theme) => ({
+                    "& .MuiStepLabel-label": {
+                      fontSize: "0.6rem",
+                    },
+
+                    [theme.breakpoints.up(375)]: {
+                      "& .MuiStepLabel-label": {
+                        fontSize: "1rem",
+                      },
+                    },
+                  })}
+                >
+                  {label}
+                </StepLabel>
               </Step>
             ))}
           </Stepper>

@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import WalletConnection from "../WalletConnection";
-import NetworksMenu from "../NetworksMenu";
+import NetworksMenu from "./NetworksMenu";
 
 const pages = [
   { label: "Validators", to: "/validators" },
@@ -99,14 +99,14 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link

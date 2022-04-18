@@ -1,10 +1,7 @@
-import { forwardRef, useState, Dispatch, SetStateAction } from "react";
+import { forwardRef, Dispatch, SetStateAction } from "react";
 import NumberFormat from "react-number-format";
-import Box from "@mui/material/Box";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
+import { MAX_VALIDATORS_TO_DELEGATE_TO } from "../../../Constants";
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
@@ -28,14 +25,21 @@ const NumberFormatCustom = forwardRef<NumberFormat<number>, CustomProps>(
           });
         }}
         isNumericString
+        allowNegative={false}
+        isAllowed={({ value }) =>
+          Number(value) <= MAX_VALIDATORS_TO_DELEGATE_TO
+        }
+        style={{
+          textAlign: "center",
+        }}
       />
     );
   },
 );
 
 interface FormattedNumberInputProps {
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
 }
 
 export default function ValidatorsCountInput({
@@ -43,7 +47,7 @@ export default function ValidatorsCountInput({
   setValue,
 }: FormattedNumberInputProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setValue(Number(event.target.value));
   };
 
   return (
@@ -56,6 +60,7 @@ export default function ValidatorsCountInput({
         inputComponent: NumberFormatCustom as any,
       }}
       variant="outlined"
+      sx={{ width: 80 }}
     />
   );
 }

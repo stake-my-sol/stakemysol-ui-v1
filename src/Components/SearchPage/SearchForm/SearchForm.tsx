@@ -1,18 +1,20 @@
 import { useContext, useState, Dispatch, SetStateAction } from "react";
-import { Container, Button, Typography } from "@mui/material";
+import { Container, Button, Typography, Box } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import TextField from "@mui/material/TextField";
 import ValidatorsCountInput from "./ValidatorsCountInput";
-import stakeMySolAxios from "../../axios-instances";
-import { NetworkContext } from "../../Contexts/NetworkProvider";
-import { GeneralNetworkDataContext } from "../../Contexts/GeneralNetworkDataProvider";
+import stakeMySolAxios from "../../../axios-instances";
+import { NetworkContext } from "../../../Contexts/NetworkProvider";
+import { GeneralNetworkDataContext } from "../../../Contexts/GeneralNetworkDataProvider";
+import { MAX_VALIDATORS_TO_DELEGATE_TO } from "../../../Constants";
 
 import {
   SearchFormSelectOption,
   SoftwareVersion,
   Validator,
-} from "../../@types/types";
+} from "../../../@types/types";
+import CustomSlider from "../../CustomSlider";
 
 interface SearchPageProps {
   setFoundValidators: Dispatch<SetStateAction<Validator[]>>;
@@ -71,8 +73,17 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
     });
   }
 
-  const [validatorsCount, setValidatorsCount] = useState<string>("5");
+  const [validatorsCount, setValidatorsCount] = useState<number>(5);
   const [selectedNames, setSelectedNames] = useState();
+  const [selectedCommission, setSelectedCommission] = useState<
+    number[] | number
+  >([0, 10]);
+  const [selectedVotePerformance, setSelectedVotePerformance] = useState<
+    number[] | number
+  >([0.9, 1]);
+  const [selectedSkipRate, setSelectedSkipRate] = useState<number[] | number>([
+    0, 0.01,
+  ]);
   const [selectedAsns, setSelectedAsns] = useState();
   const [selectedDatacenters, setSelectedDatacenters] = useState();
   const [selectedSoftwareVersions, setSelectedSoftwareVersions] = useState();
@@ -114,6 +125,9 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
         asns: selectedAsns,
         dataCenters: selectedDatacenters,
         softwareVersions: selectedSoftwareVersions,
+        currentValidatorCommission: selectedCommission,
+        votingPerformance: selectedVotePerformance,
+        skipRate: selectedSkipRate,
       },
     };
 
@@ -133,10 +147,35 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
     <Container maxWidth="sm">
       <form onSubmit={searchHandler}>
         <Typography>Count: </Typography>
-        <ValidatorsCountInput
-          value={validatorsCount}
-          setValue={setValidatorsCount}
-        />
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mx: 1, fontSize: 20 }}
+            onClick={() => {
+              setValidatorsCount(validatorsCount - 1);
+            }}
+            disabled={validatorsCount === 0}
+          >
+            -
+          </Button>
+          <ValidatorsCountInput
+            value={validatorsCount}
+            setValue={setValidatorsCount}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mx: 1, fontSize: 20 }}
+            onClick={() => {
+              setValidatorsCount(validatorsCount + 1);
+            }}
+            disabled={validatorsCount === MAX_VALIDATORS_TO_DELEGATE_TO}
+          >
+            +
+          </Button>
+        </Box>
+
         <Typography>Name: </Typography>
         <Autocomplete
           multiple
@@ -146,6 +185,16 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           filterSelectedOptions
           renderInput={(params) => <TextField {...params} />}
         />
+
+        <Typography>Commission: </Typography>
+        <CustomSlider
+          min={0}
+          max={100}
+          step={1}
+          value={selectedCommission}
+          setValue={setSelectedCommission}
+        />
+
         <Typography>ASN: </Typography>
         <Autocomplete
           multiple
@@ -155,6 +204,25 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           filterSelectedOptions
           renderInput={(params) => <TextField {...params} />}
         />
+
+        <Typography>Vote Performance (Avg): </Typography>
+        <CustomSlider
+          min={0}
+          max={1}
+          step={0.01}
+          value={selectedVotePerformance}
+          setValue={setSelectedVotePerformance}
+        />
+
+        <Typography>Skip Rate: </Typography>
+        <CustomSlider
+          min={0}
+          max={0.1}
+          step={0.01}
+          value={selectedSkipRate}
+          setValue={setSelectedSkipRate}
+        />
+
         <Typography>DataCenter: </Typography>
         <Autocomplete
           multiple

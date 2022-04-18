@@ -13,10 +13,10 @@ function Footer() {
       }}
     >
       <Box>
-        <Typography color="#fff">Powered By:</Typography>
+        <Typography color="#fff">Powered By</Typography>
       </Box>
       <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-        <Box>
+        <Box sx={{ ml: 2 }}>
           <Image
             src="/logo_solana.svg"
             alt="Solana logo"
