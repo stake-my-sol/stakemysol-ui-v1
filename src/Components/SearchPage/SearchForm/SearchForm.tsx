@@ -1,4 +1,5 @@
 import { useContext, useState, Dispatch, SetStateAction } from "react";
+import _ from "lodash";
 import {
   Container,
   Button,
@@ -10,6 +11,7 @@ import {
   RadioGroup,
   Radio,
   FormLabel,
+  Checkbox,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -97,6 +99,9 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
   const [selectedSkipRate, setSelectedSkipRate] = useState<number[] | number>([
     0, 0.01,
   ]);
+  // mapping each label to its corresponding value in database
+  const [selectedActiveStakeSaturation, setSelectedActiveStakeSaturation] =
+    useState({ "0": false, "-1": false, "-2": false });
   const [selectedAsns, setSelectedAsns] = useState();
   const [selectedDatacenters, setSelectedDatacenters] = useState();
   const [selectedSoftwareVersions, setSelectedSoftwareVersions] = useState();
@@ -118,6 +123,13 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
     setSelectedDatacenters(mappedOptions);
   };
 
+  const activeStakeSaturationSelectHandler = (key: "0" | "-1" | "-2") => {
+    setSelectedActiveStakeSaturation({
+      ...selectedActiveStakeSaturation,
+      [key]: !selectedActiveStakeSaturation[key],
+    });
+  };
+
   const softwareVersionSelectHandler = (
     event: React.SyntheticEvent,
     value: any,
@@ -132,21 +144,38 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
     const reqNetwork =
       network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
 
+    const transformedApy = (selectedApy as number[]).map((val) =>
+      Number((val / 100).toFixed(4)),
+    );
+
+    let transformedDataCenterConcentrationScore: number[] | null = Object.keys(
+      selectedActiveStakeSaturation,
+    ).reduce((prevValue, key) => {
+      if (selectedActiveStakeSaturation[key as "0" | "-1" | "-2"]) {
+        prevValue.push(Number(key));
+      }
+      return prevValue;
+    }, [] as number[]);
+
+    transformedDataCenterConcentrationScore = _.isEmpty(
+      transformedDataCenterConcentrationScore,
+    )
+      ? null
+      : transformedDataCenterConcentrationScore;
     const reqBody = {
       network: reqNetwork,
       query: {
         count: Number(validatorsCount),
         names: selectedNames,
-        apy: (selectedApy as number[]).map((val) =>
-          Number((val / 100).toFixed(4)),
-        ),
+        apy: transformedApy,
         asns: selectedAsns,
         dataCenters: selectedDatacenters,
         softwareVersions: selectedSoftwareVersions,
         currentValidatorCommission: selectedCommission,
         // votingPerformance: selectedVotePerformance,
-        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
         skipRate: selectedSkipRate,
+        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
+        dataCenterConcentrationScore: transformedDataCenterConcentrationScore,
       },
     };
     console.log(
@@ -274,6 +303,7 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           filterSelectedOptions
           renderInput={(params) => <TextField {...params} />}
         />
+
         <FormGroup>
           <FormLabel id="has-received-stake-from-stake-pools">
             Has received stake from stake pools?
@@ -300,6 +330,37 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           </RadioGroup>
         </FormGroup>
 
+        <FormGroup>
+          <FormLabel>Validator is in a data center with a ...</FormLabel>
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedActiveStakeSaturation["0"]}
+                onChange={() => activeStakeSaturationSelectHandler("0")}
+              />
+            }
+            label="normal percent of the active stake"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedActiveStakeSaturation["-1"]}
+                onChange={() => activeStakeSaturationSelectHandler("-1")}
+              />
+            }
+            label="high percent of the active stake"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selectedActiveStakeSaturation["-2"]}
+                onChange={() => activeStakeSaturationSelectHandler("-2")}
+              />
+            }
+            label="very high percent of the active stake"
+          />
+        </FormGroup>
         <Button
           sx={{ mt: 2 }}
           type="submit"
