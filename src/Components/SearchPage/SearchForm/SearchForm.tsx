@@ -1,5 +1,16 @@
 import { useContext, useState, Dispatch, SetStateAction } from "react";
-import { Container, Button, Typography, Box } from "@mui/material";
+import {
+  Container,
+  Button,
+  Typography,
+  Box,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  FormLabel,
+} from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import TextField from "@mui/material/TextField";
@@ -8,6 +19,7 @@ import stakeMySolAxios from "../../../axios-instances";
 import { NetworkContext } from "../../../Contexts/NetworkProvider";
 import { GeneralNetworkDataContext } from "../../../Contexts/GeneralNetworkDataProvider";
 import { MAX_VALIDATORS_TO_DELEGATE_TO } from "../../../Constants";
+import useToggle from "../../../hooks/useToggle";
 
 import {
   SearchFormSelectOption,
@@ -88,6 +100,8 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
   const [selectedAsns, setSelectedAsns] = useState();
   const [selectedDatacenters, setSelectedDatacenters] = useState();
   const [selectedSoftwareVersions, setSelectedSoftwareVersions] = useState();
+  const [hasReceivedStakeFromStakePools, toggleHasReceivedStakeFromStakePools] =
+    useToggle(false);
 
   const nameSelectHandler = (event: React.SyntheticEvent, value: any) => {
     const mappedOptions = value.map((option: any) => option.value);
@@ -131,6 +145,7 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
         softwareVersions: selectedSoftwareVersions,
         currentValidatorCommission: selectedCommission,
         // votingPerformance: selectedVotePerformance,
+        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
         skipRate: selectedSkipRate,
       },
     };
@@ -259,6 +274,32 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           filterSelectedOptions
           renderInput={(params) => <TextField {...params} />}
         />
+        <FormGroup>
+          <FormLabel id="has-received-stake-from-stake-pools">
+            Has received stake from stake pools?
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="has-received-stake-from-stake-pools"
+            name="received-stake-from-stake-pools"
+            value={hasReceivedStakeFromStakePools}
+            onChange={toggleHasReceivedStakeFromStakePools}
+          >
+            <FormControlLabel
+              value={false}
+              control={<Radio />}
+              label="No"
+              labelPlacement="end"
+            />
+            <FormControlLabel
+              value={true}
+              control={<Radio />}
+              label="Yes"
+              labelPlacement="end"
+            />
+          </RadioGroup>
+        </FormGroup>
+
         <Button
           sx={{ mt: 2 }}
           type="submit"
