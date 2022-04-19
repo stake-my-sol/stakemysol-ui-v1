@@ -1,14 +1,9 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import _ from "lodash";
 import { styled } from "@mui/material/styles";
-import Slider, { SliderThumb } from "@mui/material/Slider";
-import Tooltip from "@mui/material/Tooltip";
+import Slider, { SliderThumb, SliderProps } from "@mui/material/Slider";
 
-interface CustomSliderProps {
-  min: number;
-  max: number;
-  step: number;
-  value: number[] | number;
+interface CustomSliderProps extends SliderProps {
   setValue: Dispatch<SetStateAction<number[] | number>>;
 }
 
@@ -56,26 +51,21 @@ function AirbnbThumbComponent(props: AirbnbThumbComponentProps) {
   );
 }
 
-function CustomSlider({ min, max, step, value, setValue }: CustomSliderProps) {
+function CustomSlider({ value, setValue, ...other }: CustomSliderProps) {
   return (
     <AirbnbSlider
       components={{ Thumb: AirbnbThumbComponent }}
       getAriaLabel={(index) =>
         index === 0 ? "Minimum price" : "Maximum price"
       }
-      value={value}
       onChange={(_e, newValue) => {
         if (!_.isEqual(value, newValue)) {
-          console.log(newValue);
           setValue(newValue);
         }
       }}
-      // defaultValue={[0, 10]}
-
       valueLabelDisplay="auto"
-      min={min}
-      max={max}
-      step={step}
+      value={value}
+      {...other}
     />
   );
 }

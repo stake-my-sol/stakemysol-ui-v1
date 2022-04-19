@@ -75,6 +75,7 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
 
   const [validatorsCount, setValidatorsCount] = useState<number>(5);
   const [selectedNames, setSelectedNames] = useState();
+  const [selectedApy, setSelectedApy] = useState<number[] | number>([6, 8]);
   const [selectedCommission, setSelectedCommission] = useState<
     number[] | number
   >([0, 10]);
@@ -122,14 +123,21 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
       query: {
         count: Number(validatorsCount),
         names: selectedNames,
+        apy: (selectedApy as number[]).map((val) =>
+          Number((val / 100).toFixed(4)),
+        ),
         asns: selectedAsns,
         dataCenters: selectedDatacenters,
         softwareVersions: selectedSoftwareVersions,
         currentValidatorCommission: selectedCommission,
-        votingPerformance: selectedVotePerformance,
+        // votingPerformance: selectedVotePerformance,
         skipRate: selectedSkipRate,
       },
     };
+    console.log(
+      "🚀 ~ file: SearchForm.tsx ~ line 135 ~ searchHandler ~ reqBody",
+      reqBody,
+    );
 
     const { data } = await stakeMySolAxios.post("/search/search-validators", {
       signal: abortController.signal,
@@ -186,6 +194,15 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           renderInput={(params) => <TextField {...params} />}
         />
 
+        <Typography>APY(%): </Typography>
+        <CustomSlider
+          min={0}
+          max={10}
+          step={0.01}
+          value={selectedApy}
+          setValue={setSelectedApy}
+        />
+
         <Typography>Commission: </Typography>
         <CustomSlider
           min={0}
@@ -212,12 +229,13 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
           step={0.01}
           value={selectedVotePerformance}
           setValue={setSelectedVotePerformance}
+          disabled
         />
 
         <Typography>Skip Rate: </Typography>
         <CustomSlider
           min={0}
-          max={0.1}
+          max={1}
           step={0.01}
           value={selectedSkipRate}
           setValue={setSelectedSkipRate}
