@@ -141,6 +141,7 @@ function SearchPage() {
 
   const searchHandler = async (e: any) => {
     e.preventDefault();
+    console.log(e);
     const abortController = new AbortController();
     const reqNetwork =
       network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
@@ -163,6 +164,14 @@ function SearchPage() {
     )
       ? null
       : transformedDataCenterConcentrationScore;
+
+    const transformedSkipRate = selectedSkipRate.map((el: number) =>
+      Number((el / 100).toFixed(3)),
+    );
+
+    const transformedVotePerformance = selectedVotePerformance.map(
+      (el: number) => Number((el / 100).toFixed(3)),
+    );
     const reqBody = {
       network: reqNetwork,
       query: {
@@ -173,8 +182,8 @@ function SearchPage() {
         dataCenters: selectedDatacenters,
         softwareVersions: selectedSoftwareVersions,
         currentValidatorCommission: selectedCommission,
-        // votingPerformance: selectedVotePerformance,
-        skipRate: selectedSkipRate,
+        // votingPerformance: transformedVotePerformance,
+        skipRate: transformedSkipRate,
         receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
         dataCenterConcentrationScore: transformedDataCenterConcentrationScore,
       },
@@ -243,12 +252,12 @@ function SearchPage() {
         <CustomSlider
           min={0}
           max={10}
-          step={0.01}
+          step={0.1}
           value={selectedApy}
           setValue={setSelectedApy}
         />
 
-        <Typography>Commission: </Typography>
+        <Typography>Commission(%): </Typography>
         <CustomSlider
           min={0}
           max={100}
@@ -267,21 +276,21 @@ function SearchPage() {
           renderInput={(params) => <TextField {...params} />}
         />
 
-        <Typography>Vote Performance (Avg): </Typography>
+        <Typography>Vote Performance(%Avg): </Typography>
         <CustomSlider
           min={0}
-          max={1}
-          step={0.01}
+          max={100}
+          step={0.1}
           value={selectedVotePerformance}
           setValue={setSelectedVotePerformance}
           disabled
         />
 
-        <Typography>Skip Rate: </Typography>
+        <Typography>Skip Rate(%): </Typography>
         <CustomSlider
           min={0}
-          max={1}
-          step={0.01}
+          max={100}
+          step={0.1}
           value={selectedSkipRate}
           setValue={setSelectedSkipRate}
         />

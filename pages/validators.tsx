@@ -108,6 +108,7 @@ function ValidatorsPage() {
         <ValidatorsResult
           handleOpenShowMore={handleOpenShowMore}
           validators={validators}
+          perPage={perPage}
         />
         <Divider sx={{ mt: "1rem" }} />
         <Box sx={{ mt: "1rem", mb: "1rem" }}>

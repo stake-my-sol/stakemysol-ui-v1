@@ -20,9 +20,9 @@ function SearchContextProvider({ children }: SearchContextProps) {
   >([0, 10]);
   const [selectedVotePerformance, setSelectedVotePerformance] = useState<
     number[] | number
-  >([0.9, 1]);
+  >([80, 100]);
   const [selectedSkipRate, setSelectedSkipRate] = useState<number[] | number>([
-    0, 0.01,
+    0, 10,
   ]);
   // mapping each label to its corresponding value in database
   const [selectedActiveStakeSaturation, setSelectedActiveStakeSaturation] =
