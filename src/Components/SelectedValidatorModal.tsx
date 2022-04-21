@@ -84,14 +84,15 @@ function SelectedValidatorModal({ validator }: SelectedValidatorModalProps) {
       criteria: "Skipped Slot",
       score: 0,
     },
-    // [3] published information score
-    {
-      criteria: "Published Information",
-      score: 0,
-    },
-    // [4] software version score
+
+    // [3] software version score
     {
       criteria: "Software Version",
+      score: 0,
+    },
+    // [4] published information score
+    {
+      criteria: "Published Information",
       score: 0,
     },
     // [5] security report score
@@ -99,14 +100,14 @@ function SelectedValidatorModal({ validator }: SelectedValidatorModalProps) {
       criteria: "Security Report",
       score: 0,
     },
-    // [6] stake concentration score
-    {
-      criteria: "Stake Concentration",
-      score: 0,
-    },
-    // [7] data center concentration score
+    // [6] data center concentration score
     {
       criteria: "DataCenter Concentration",
+      score: 0,
+    },
+    // [7] stake concentration score
+    {
+      criteria: "Stake Concentration",
       score: 0,
     },
     // [8] authorized withdrawer score
@@ -125,11 +126,11 @@ function SelectedValidatorModal({ validator }: SelectedValidatorModalProps) {
   if (_.isNumber(validator.skipped_slot_score)) {
     scoresChartData[2].score = validator.skipped_slot_score;
   }
-  if (_.isNumber(validator.published_information_score)) {
-    scoresChartData[3].score = validator.published_information_score;
-  }
   if (_.isNumber(validator.software_version_score)) {
-    scoresChartData[4].score = validator.software_version_score;
+    scoresChartData[3].score = validator.software_version_score;
+  }
+  if (_.isNumber(validator.published_information_score)) {
+    scoresChartData[4].score = validator.published_information_score;
   }
   if (_.isNumber(validator.security_report_score)) {
     if (validator.security_report_score === 1) {
@@ -138,18 +139,18 @@ function SelectedValidatorModal({ validator }: SelectedValidatorModalProps) {
       scoresChartData[5].score = 0;
     }
   }
-  if (_.isNumber(validator.stake_concentration_score)) {
-    if (validator.stake_concentration_score === -2) {
+  if (_.isNumber(validator.data_center_concentration_score)) {
+    if (validator.data_center_concentration_score === -2) {
       scoresChartData[6].score = 0;
+    } else if (validator.data_center_concentration_score === -1) {
+      scoresChartData[6].score = 1;
     } else {
       scoresChartData[6].score = 2;
     }
   }
-  if (_.isNumber(validator.data_center_concentration_score)) {
-    if (validator.data_center_concentration_score === -2) {
+  if (_.isNumber(validator.stake_concentration_score)) {
+    if (validator.stake_concentration_score === -2) {
       scoresChartData[7].score = 0;
-    } else if (validator.data_center_concentration_score === -1) {
-      scoresChartData[7].score = 1;
     } else {
       scoresChartData[7].score = 2;
     }
