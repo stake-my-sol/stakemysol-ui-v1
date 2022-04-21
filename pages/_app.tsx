@@ -6,6 +6,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import WalletProvider from "../src/Contexts/WalletProvider";
 import SelectedValidatorsProvider from "../src/Contexts/SelectedValidatorsProvider";
 import GeneralNetworkDataProvider from "../src/Contexts/GeneralNetworkDataProvider";
+import SearchContextProvider from "../src/Contexts/SearchContextProvider";
 import NetworkProvider from "../src/Contexts/NetworkProvider";
 import theme from "../styles/Theme/theme";
 import createEmotionCache from "../src/utils/createEmotionCache";
@@ -28,14 +29,16 @@ export default function MyApp(props: MyAppProps) {
       <NetworkProvider>
         <WalletProvider>
           <GeneralNetworkDataProvider>
-            <SelectedValidatorsProvider>
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ThemeProvider>
-            </SelectedValidatorsProvider>
+            <SearchContextProvider>
+              <SelectedValidatorsProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </ThemeProvider>
+              </SelectedValidatorsProvider>
+            </SearchContextProvider>
           </GeneralNetworkDataProvider>
         </WalletProvider>
       </NetworkProvider>

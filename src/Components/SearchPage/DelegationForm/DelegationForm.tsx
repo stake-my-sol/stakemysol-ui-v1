@@ -1,19 +1,13 @@
+import { useContext } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { SearchContext } from "../../../Contexts/SearchContextProvider";
 
-import { Validator } from "../../@types/types";
+import { Validator } from "../../../@types/types";
 
-interface ValidatorsSelectionProps {
-  foundValidators: Validator[];
-}
-
-export default function ValidatorsSelection({
-  foundValidators,
-}: ValidatorsSelectionProps) {
+export default function ValidatorsSelection() {
+  const { foundValidators } = useContext(SearchContext);
   return (
     <>
       <Typography textAlign="center" variant="h6" gutterBottom>

@@ -20,8 +20,8 @@ import ValidatorsCountInput from "./ValidatorsCountInput";
 import stakeMySolAxios from "../../../axios-instances";
 import { NetworkContext } from "../../../Contexts/NetworkProvider";
 import { GeneralNetworkDataContext } from "../../../Contexts/GeneralNetworkDataProvider";
+import { SearchContext } from "../../../Contexts/SearchContextProvider";
 import { MAX_VALIDATORS_TO_DELEGATE_TO } from "../../../Constants";
-import useToggle from "../../../hooks/useToggle";
 
 import {
   SearchFormSelectOption,
@@ -30,12 +30,34 @@ import {
 } from "../../../@types/types";
 import CustomSlider from "../../CustomSlider";
 
-interface SearchPageProps {
-  setFoundValidators: Dispatch<SetStateAction<Validator[]>>;
-}
-
-function SearchPage({ setFoundValidators }: SearchPageProps) {
+function SearchPage() {
   const { network } = useContext(NetworkContext)!;
+
+  const {
+    validatorsCount,
+    selectedNames,
+    selectedApy,
+    selectedCommission,
+    selectedVotePerformance,
+    selectedSkipRate,
+    selectedActiveStakeSaturation,
+    selectedAsns,
+    selectedDatacenters,
+    selectedSoftwareVersions,
+    hasReceivedStakeFromStakePools,
+    setFoundValidators,
+    setValidatorsCount,
+    setSelectedNames,
+    setSelectedApy,
+    setSelectedCommission,
+    setSelectedVotePerformance,
+    setSelectedSkipRate,
+    setSelectedActiveStakeSaturation,
+    setSelectedAsns,
+    setSelectedDatacenters,
+    setSelectedSoftwareVersions,
+    toggleHasReceivedStakeFromStakePools,
+  } = useContext(SearchContext)!;
 
   const generalNetworkData = useContext(GeneralNetworkDataContext);
   let nameSelectOptions: SearchFormSelectOption[] = [];
@@ -86,27 +108,6 @@ function SearchPage({ setFoundValidators }: SearchPageProps) {
       return { label: softwareVersion._id, value: softwareVersion._id };
     });
   }
-
-  const [validatorsCount, setValidatorsCount] = useState<number>(5);
-  const [selectedNames, setSelectedNames] = useState();
-  const [selectedApy, setSelectedApy] = useState<number[] | number>([6, 8]);
-  const [selectedCommission, setSelectedCommission] = useState<
-    number[] | number
-  >([0, 10]);
-  const [selectedVotePerformance, setSelectedVotePerformance] = useState<
-    number[] | number
-  >([0.9, 1]);
-  const [selectedSkipRate, setSelectedSkipRate] = useState<number[] | number>([
-    0, 0.01,
-  ]);
-  // mapping each label to its corresponding value in database
-  const [selectedActiveStakeSaturation, setSelectedActiveStakeSaturation] =
-    useState({ "0": false, "-1": false, "-2": false });
-  const [selectedAsns, setSelectedAsns] = useState();
-  const [selectedDatacenters, setSelectedDatacenters] = useState();
-  const [selectedSoftwareVersions, setSelectedSoftwareVersions] = useState();
-  const [hasReceivedStakeFromStakePools, toggleHasReceivedStakeFromStakePools] =
-    useToggle(false);
 
   const nameSelectHandler = (event: React.SyntheticEvent, value: any) => {
     const mappedOptions = value.map((option: any) => option.value);

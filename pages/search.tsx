@@ -1,4 +1,14 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import {
+  useState,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+  useMemo,
+} from "react";
+import _ from "lodash";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import stakeMySolAxios from "../src/axios-instances";
 import Head from "next/head";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -9,34 +19,39 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import SearchForm from "../src/Components/SearchPage/SearchForm/SearchForm";
-import ValidatorsSelection from "../src/Components/SearchPage/ValidatorsSelection";
-import Review from "../src/Components/SearchPage/Review";
-import { Validator } from "../src/@types/types";
+import ValidatorsSelection from "../src/Components/SearchPage/DelegationForm/DelegationForm";
+import { NetworkContext } from "../src/Contexts/NetworkProvider";
+import { SearchContext } from "../src/Contexts/SearchContextProvider";
+// import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
 
-const steps = ["Search", "Delegation", "Review"];
+const steps = ["Search", "Delegation"];
 
-function getStepContent(
-  step: number,
-  foundValidators: Validator[],
-  setFoundValidators: Dispatch<SetStateAction<Validator[]>>,
-) {
+const getStepContent = (step: number) => {
   switch (step) {
     case 0:
-      return <SearchForm setFoundValidators={setFoundValidators} />;
+      return <SearchForm />;
     case 1:
-      return <ValidatorsSelection foundValidators={foundValidators} />;
-    case 2:
-      return <Review />;
+      return <ValidatorsSelection />;
+
     default:
       throw new Error("Unknown step");
   }
-}
+};
 
-export default function Checkout() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [foundValidators, setFoundValidators] = useState<Validator[]>([]);
+export default function Search() {
+  const { network } = useContext(NetworkContext)!;
+  const { activeStep, setActiveStep } = useContext(SearchContext)!;
 
-  const handleNext = () => {
+  const handleFormAction = (activeStep: number) => {
+    switch (activeStep) {
+      case 0:
+        break;
+      case 1:
+        break;
+      default:
+        throw new Error(`Invalid active step ${activeStep}`);
+    }
+
     setActiveStep(activeStep + 1);
   };
 
@@ -61,7 +76,7 @@ export default function Checkout() {
                 <StepLabel
                   sx={(theme) => ({
                     "& .MuiStepLabel-label": {
-                      fontSize: "0.6rem",
+                      fontSize: "0.8rem",
                     },
 
                     [theme.breakpoints.up(375)]: {
@@ -89,8 +104,8 @@ export default function Checkout() {
             </>
           ) : (
             <>
-              {getStepContent(activeStep, foundValidators, setFoundValidators)}
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              {getStepContent(activeStep)}
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                     Back
@@ -98,10 +113,10 @@ export default function Checkout() {
                 )}
                 <Button
                   variant="contained"
-                  onClick={handleNext}
+                  onClick={() => handleFormAction(activeStep)}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  {activeStep === steps.length - 1 ? "Stake" : "Search"}
                 </Button>
               </Box>
             </>
