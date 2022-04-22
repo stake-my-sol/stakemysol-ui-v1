@@ -40,11 +40,93 @@ const getStepContent = (step: number) => {
 
 export default function Search() {
   const { network } = useContext(NetworkContext)!;
-  const { activeStep, setActiveStep } = useContext(SearchContext)!;
+  const {
+    activeStep,
+    setActiveStep,
+    selectedApy,
+    selectedActiveStakeSaturation,
+    transformedDataCenterConcentrationScore,
+    selectedSkipRate,
+    selectedVotePerformance,
+    validatorsCount,
+    selectedNames,
+    selectedAsns,
+    selectedDatacenters,
+    selectedSoftwareVersions,
+    selectedCommission,
+    hasReceivedStakeFromStakePools,
+    setFoundValidators,
+  } = useContext(SearchContext)!;
 
-  const handleFormAction = (activeStep: number) => {
+  const searchHandler = async () => {
+    // e.preventDefault();
+    const abortController = new AbortController();
+    const reqNetwork =
+      network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
+
+    const transformedApy = (selectedApy as number[]).map((val) =>
+      Number((val / 100).toFixed(4)),
+    );
+
+    let transformedDataCenterConcentrationScore: number[] | null = Object.keys(
+      selectedActiveStakeSaturation,
+    ).reduce((prevValue, key) => {
+      if (selectedActiveStakeSaturation[key as "0" | "-1" | "-2"]) {
+        prevValue.push(Number(key));
+      }
+      return prevValue;
+    }, [] as number[]);
+
+    transformedDataCenterConcentrationScore = _.isEmpty(
+      transformedDataCenterConcentrationScore,
+    )
+      ? null
+      : transformedDataCenterConcentrationScore;
+
+    const transformedSkipRate = selectedSkipRate.map((el: number) =>
+      Number((el / 100).toFixed(3)),
+    );
+
+    const transformedVotePerformance = selectedVotePerformance.map(
+      (el: number) => Number((el / 100).toFixed(3)),
+    );
+    const reqBody = {
+      network: reqNetwork,
+      query: {
+        count: Number(validatorsCount),
+        names: selectedNames,
+        apy: transformedApy,
+        asns: selectedAsns,
+        dataCenters: selectedDatacenters,
+        softwareVersions: selectedSoftwareVersions,
+        currentValidatorCommission: selectedCommission,
+        // votingPerformance: transformedVotePerformance,
+        skipRate: transformedSkipRate,
+        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
+        dataCenterConcentrationScore: transformedDataCenterConcentrationScore,
+      },
+    };
+    console.log(
+      "🚀 ~ file: SearchForm.tsx ~ line 135 ~ searchHandler ~ reqBody",
+      reqBody,
+    );
+
+    const { data } = await stakeMySolAxios.post("/search/search-validators", {
+      signal: abortController.signal,
+      data: reqBody,
+    });
+    console.log(
+      "🚀 ~ file: SearchForm.tsx ~ line 129 ~ searchHandler ~ data",
+      data,
+    );
+
+    setFoundValidators(data);
+  };
+
+  const handleFormAction = async (activeStep: number) => {
     switch (activeStep) {
       case 0:
+        await searchHandler();
         break;
       case 1:
         break;

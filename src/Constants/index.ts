@@ -1,7 +1,7 @@
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 export const DEFAULT_NETWORK: WalletAdapterNetwork =
-  WalletAdapterNetwork.Testnet;
+  WalletAdapterNetwork.Mainnet;
 
 export const SELECTED_VALIDATORS_ACTIONS = {
   ADD_VALIDATOR: "ADD_VALIDATOR",

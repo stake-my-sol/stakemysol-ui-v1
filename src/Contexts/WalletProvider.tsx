@@ -4,21 +4,12 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import {
-  LedgerWalletAdapter,
   PhantomWalletAdapter,
   SlopeWalletAdapter,
   SolflareWalletAdapter,
-  SolletExtensionWalletAdapter,
-  SolletWalletAdapter,
-  TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { clusterApiUrl } from "@solana/web3.js";
-// import Home from "../Components/Home";
-import { NetworkState, NetworkReducerAction } from "../@types/types";
-import { DEFAULT_NETWORK } from "../Constants/index";
-import NetworkProvider from "../Contexts/NetworkProvider";
-import { loadFromLocalStorage } from "../utils/localStorage";
 import { NetworkContext } from "./NetworkProvider";
 
 // Default styles that can be overridden by your app
@@ -44,10 +35,6 @@ function Wallet({ children }: WalletProps) {
       new PhantomWalletAdapter(),
       new SlopeWalletAdapter(),
       new SolflareWalletAdapter({ network: network }),
-      new TorusWalletAdapter(),
-      new LedgerWalletAdapter(),
-      new SolletWalletAdapter({ network: network }),
-      new SolletExtensionWalletAdapter({ network: network }),
     ],
     [network],
   );

@@ -5,7 +5,6 @@ import {
   Button,
   Typography,
   Box,
-  Switch,
   FormGroup,
   FormControlLabel,
   RadioGroup,
@@ -139,75 +138,9 @@ function SearchPage() {
     setSelectedSoftwareVersions(mappedOptions);
   };
 
-  const searchHandler = async (e: any) => {
-    e.preventDefault();
-    console.log(e);
-    const abortController = new AbortController();
-    const reqNetwork =
-      network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
-
-    const transformedApy = (selectedApy as number[]).map((val) =>
-      Number((val / 100).toFixed(4)),
-    );
-
-    let transformedDataCenterConcentrationScore: number[] | null = Object.keys(
-      selectedActiveStakeSaturation,
-    ).reduce((prevValue, key) => {
-      if (selectedActiveStakeSaturation[key as "0" | "-1" | "-2"]) {
-        prevValue.push(Number(key));
-      }
-      return prevValue;
-    }, [] as number[]);
-
-    transformedDataCenterConcentrationScore = _.isEmpty(
-      transformedDataCenterConcentrationScore,
-    )
-      ? null
-      : transformedDataCenterConcentrationScore;
-
-    const transformedSkipRate = selectedSkipRate.map((el: number) =>
-      Number((el / 100).toFixed(3)),
-    );
-
-    const transformedVotePerformance = selectedVotePerformance.map(
-      (el: number) => Number((el / 100).toFixed(3)),
-    );
-    const reqBody = {
-      network: reqNetwork,
-      query: {
-        count: Number(validatorsCount),
-        names: selectedNames,
-        apy: transformedApy,
-        asns: selectedAsns,
-        dataCenters: selectedDatacenters,
-        softwareVersions: selectedSoftwareVersions,
-        currentValidatorCommission: selectedCommission,
-        // votingPerformance: transformedVotePerformance,
-        skipRate: transformedSkipRate,
-        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
-        dataCenterConcentrationScore: transformedDataCenterConcentrationScore,
-      },
-    };
-    console.log(
-      "🚀 ~ file: SearchForm.tsx ~ line 135 ~ searchHandler ~ reqBody",
-      reqBody,
-    );
-
-    const { data } = await stakeMySolAxios.post("/search/search-validators", {
-      signal: abortController.signal,
-      data: reqBody,
-    });
-    console.log(
-      "🚀 ~ file: SearchForm.tsx ~ line 129 ~ searchHandler ~ data",
-      data,
-    );
-
-    setFoundValidators(data);
-  };
-
   return (
     <Container maxWidth="sm">
-      <form onSubmit={searchHandler}>
+      <form>
         <Typography>Count: </Typography>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <Button
@@ -371,14 +304,6 @@ function SearchPage() {
             label="very high percent of the active stake"
           />
         </FormGroup>
-        <Button
-          sx={{ mt: 2 }}
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Search
-        </Button>
       </form>
     </Container>
   );
