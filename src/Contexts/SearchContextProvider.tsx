@@ -24,6 +24,9 @@ function SearchContextProvider({ children }: SearchContextProps) {
   const [selectedSkipRate, setSelectedSkipRate] = useState<number[] | number>([
     0, 10,
   ]);
+  const [selectedActiveStake, setSelectedActiveStake] = useState<
+    number[] | number
+  >([0, 5000000]);
   // mapping each label to its corresponding value in database
   const [selectedActiveStakeSaturation, setSelectedActiveStakeSaturation] =
     useState({ "0": false, "-1": false, "-2": false });
@@ -46,6 +49,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
       selectedApy,
       selectedCommission,
       selectedVotePerformance,
+      selectedActiveStake,
       selectedSkipRate,
       selectedActiveStakeSaturation,
       selectedAsns,
@@ -59,6 +63,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
       setSelectedApy,
       setSelectedCommission,
       setSelectedVotePerformance,
+      setSelectedActiveStake,
       setSelectedSkipRate,
       setSelectedActiveStakeSaturation,
       setSelectedAsns,
@@ -69,12 +74,12 @@ function SearchContextProvider({ children }: SearchContextProps) {
   }, [
     foundValidators,
     activeStep,
-    setActiveStep,
     validatorsCount,
     selectedNames,
     selectedApy,
     selectedCommission,
     selectedVotePerformance,
+    selectedActiveStake,
     selectedSkipRate,
     selectedActiveStakeSaturation,
     selectedAsns,
@@ -82,6 +87,8 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedSoftwareVersions,
     hasReceivedStakeFromStakePools,
     setFoundValidators,
+    setActiveStep,
+    setSelectedActiveStake,
     setValidatorsCount,
     setSelectedNames,
     setSelectedApy,

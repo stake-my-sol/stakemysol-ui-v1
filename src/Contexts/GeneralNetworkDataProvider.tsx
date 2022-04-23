@@ -20,6 +20,7 @@ export const GeneralNetworkDataContext = createContext<GeneralNetworkDataState>(
   {
     count: null,
     names: null,
+    maxActiveStake: null,
     asns: null,
     softwareVersions: null,
     dataCenters: null,
@@ -56,6 +57,7 @@ function GeneralNetworkDataProvider({
   const [generalNetworkData, setGeneralNetworkData] = useState({
     mainnet: {
       count: null,
+      maxActiveStake: null,
       names: null,
       asns: null,
       softwareVersions: null,
@@ -64,6 +66,7 @@ function GeneralNetworkDataProvider({
     },
     testnet: {
       count: null,
+      maxActiveStake: null,
       names: null,
       asns: null,
       softwareVersions: null,

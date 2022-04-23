@@ -19,11 +19,15 @@ function ValidatorsResult({
   let skeletonKey = 0;
   if (_.isEmpty(validators)) {
     renderedValidators = (
-      <Paper sx={{ minHeight: "20rem", p: 1 }}>
+      <>
         {[...Array(perPage)].map(() => {
-          return <SingleValidatorResultSkeleton key={skeletonKey++} />;
+          return (
+            <Paper sx={{ p: 1 }} key={skeletonKey++}>
+              <SingleValidatorResultSkeleton />
+            </Paper>
+          );
         })}
-      </Paper>
+      </>
     );
   } else {
     renderedValidators = validators.map((validator: any) => (

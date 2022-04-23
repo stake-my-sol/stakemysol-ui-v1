@@ -48,6 +48,7 @@ export default function Search() {
     transformedDataCenterConcentrationScore,
     selectedSkipRate,
     selectedVotePerformance,
+    selectedActiveStake,
     validatorsCount,
     selectedNames,
     selectedAsns,
@@ -90,6 +91,10 @@ export default function Search() {
     const transformedVotePerformance = selectedVotePerformance.map(
       (el: number) => Number((el / 100).toFixed(3)),
     );
+
+    const transformedActiveStake = selectedActiveStake.map(
+      (el: number) => el * 1000000000,
+    );
     const reqBody = {
       network: reqNetwork,
       query: {
@@ -101,6 +106,7 @@ export default function Search() {
         softwareVersions: selectedSoftwareVersions,
         currentValidatorCommission: selectedCommission,
         // votingPerformance: transformedVotePerformance,
+        activeStake: transformedActiveStake,
         skipRate: transformedSkipRate,
         receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
         dataCenterConcentrationScore: transformedDataCenterConcentrationScore,

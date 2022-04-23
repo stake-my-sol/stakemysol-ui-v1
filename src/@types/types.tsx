@@ -114,6 +114,7 @@ export interface SearchFormSelectOption {
 export interface GeneralNetworkData {
   count: number | null;
   names: string[] | null;
+  maxActiveStake: number | null;
   asns: number[] | null;
   softwareVersions: SoftwareVersion[] | null;
   dataCenters: string[] | null;

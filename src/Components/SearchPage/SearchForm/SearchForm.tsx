@@ -38,6 +38,7 @@ function SearchPage() {
     selectedApy,
     selectedCommission,
     selectedVotePerformance,
+    selectedActiveStake,
     selectedSkipRate,
     selectedActiveStakeSaturation,
     selectedAsns,
@@ -50,6 +51,7 @@ function SearchPage() {
     setSelectedApy,
     setSelectedCommission,
     setSelectedVotePerformance,
+    setSelectedActiveStake,
     setSelectedSkipRate,
     setSelectedActiveStakeSaturation,
     setSelectedAsns,
@@ -64,6 +66,7 @@ function SearchPage() {
   let dataCenterSelectOptions: SearchFormSelectOption[] = [];
   let softwareVersionSelectOptions: SearchFormSelectOption[] = [];
   let majorVersion: SoftwareVersion;
+  let maxActiveStake: number = 5000000;
 
   if (generalNetworkData.names !== null) {
     const { names } = generalNetworkData;
@@ -106,6 +109,10 @@ function SearchPage() {
       }
       return { label: softwareVersion._id, value: softwareVersion._id };
     });
+  }
+
+  if (generalNetworkData.maxActiveStake !== null) {
+    maxActiveStake = Math.trunc(generalNetworkData.maxActiveStake / 1000000000);
   }
 
   const nameSelectHandler = (event: React.SyntheticEvent, value: any) => {
@@ -197,6 +204,15 @@ function SearchPage() {
           step={1}
           value={selectedCommission}
           setValue={setSelectedCommission}
+        />
+
+        <Typography>Active Stake: </Typography>
+        <CustomSlider
+          min={0}
+          max={maxActiveStake}
+          step={1000}
+          value={selectedActiveStake}
+          setValue={setSelectedActiveStake}
         />
 
         <Typography>ASN: </Typography>
