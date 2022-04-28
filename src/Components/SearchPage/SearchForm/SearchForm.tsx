@@ -34,6 +34,7 @@ function SearchPage() {
 
   const {
     validatorsCount,
+    advancedSearch,
     selectedNames,
     selectedApy,
     selectedCommission,
@@ -47,6 +48,7 @@ function SearchPage() {
     hasReceivedStakeFromStakePools,
     setFoundValidators,
     setValidatorsCount,
+    toggleAdvancedSearch,
     setSelectedNames,
     setSelectedApy,
     setSelectedCommission,
@@ -206,120 +208,128 @@ function SearchPage() {
           setValue={setSelectedCommission}
         />
 
-        <Typography>Active Stake: </Typography>
-        <CustomSlider
-          min={0}
-          max={maxActiveStake}
-          step={1000}
-          value={selectedActiveStake}
-          setValue={setSelectedActiveStake}
-        />
-
-        <Typography>ASN: </Typography>
-        <Autocomplete
-          multiple
-          onChange={asnSelectHandler}
-          options={asnSelectOptions}
-          getOptionLabel={(option) => option.label}
-          filterSelectedOptions
-          renderInput={(params) => <TextField {...params} />}
-        />
-
-        <Typography>Vote Performance(%Avg): </Typography>
-        <CustomSlider
-          min={0}
-          max={100}
-          step={0.1}
-          value={selectedVotePerformance}
-          setValue={setSelectedVotePerformance}
-          disabled
-        />
-
-        <Typography>Skip Rate(%): </Typography>
-        <CustomSlider
-          min={0}
-          max={100}
-          step={0.1}
-          value={selectedSkipRate}
-          setValue={setSelectedSkipRate}
-        />
-
-        <Typography>DataCenter: </Typography>
-        <Autocomplete
-          multiple
-          onChange={datacenterSelectHandler}
-          options={dataCenterSelectOptions}
-          getOptionLabel={(option) => option.label}
-          filterSelectedOptions
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <Typography>Software Version: </Typography>
-        <Autocomplete
-          multiple
-          onChange={softwareVersionSelectHandler}
-          options={softwareVersionSelectOptions}
-          getOptionLabel={(option) => option.label}
-          filterSelectedOptions
-          renderInput={(params) => <TextField {...params} />}
-        />
-
-        <FormGroup>
-          <FormLabel id="has-received-stake-from-stake-pools">
-            Has received stake from stake pools?
-          </FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="has-received-stake-from-stake-pools"
-            name="received-stake-from-stake-pools"
-            value={hasReceivedStakeFromStakePools}
-            onChange={toggleHasReceivedStakeFromStakePools}
-          >
-            <FormControlLabel
-              value={false}
-              control={<Radio />}
-              label="No"
-              labelPlacement="end"
+        {advancedSearch ? (
+          <>
+            <Typography>Active Stake: </Typography>
+            <CustomSlider
+              min={0}
+              max={maxActiveStake}
+              step={10000}
+              value={selectedActiveStake}
+              setValue={setSelectedActiveStake}
             />
-            <FormControlLabel
-              value={true}
-              control={<Radio />}
-              label="Yes"
-              labelPlacement="end"
+
+            <Typography>ASN: </Typography>
+            <Autocomplete
+              multiple
+              onChange={asnSelectHandler}
+              options={asnSelectOptions}
+              getOptionLabel={(option) => option.label}
+              filterSelectedOptions
+              renderInput={(params) => <TextField {...params} />}
             />
-          </RadioGroup>
-        </FormGroup>
 
-        <FormGroup>
-          <FormLabel>Validator is in a data center with a ...</FormLabel>
+            <Typography>Vote Performance(%Avg): </Typography>
+            <CustomSlider
+              min={0}
+              max={100}
+              step={0.1}
+              value={selectedVotePerformance}
+              setValue={setSelectedVotePerformance}
+              disabled
+            />
 
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedActiveStakeSaturation["0"]}
-                onChange={() => activeStakeSaturationSelectHandler("0")}
+            <Typography>Skip Rate(%): </Typography>
+            <CustomSlider
+              min={0}
+              max={100}
+              step={0.1}
+              value={selectedSkipRate}
+              setValue={setSelectedSkipRate}
+            />
+
+            <Typography>DataCenter: </Typography>
+            <Autocomplete
+              multiple
+              onChange={datacenterSelectHandler}
+              options={dataCenterSelectOptions}
+              getOptionLabel={(option) => option.label}
+              filterSelectedOptions
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <Typography>Software Version: </Typography>
+            <Autocomplete
+              multiple
+              onChange={softwareVersionSelectHandler}
+              options={softwareVersionSelectOptions}
+              getOptionLabel={(option) => option.label}
+              filterSelectedOptions
+              renderInput={(params) => <TextField {...params} />}
+            />
+
+            <FormGroup>
+              <FormLabel id="has-received-stake-from-stake-pools">
+                Has received stake from stake pools?
+              </FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="has-received-stake-from-stake-pools"
+                name="received-stake-from-stake-pools"
+                value={hasReceivedStakeFromStakePools}
+                onChange={toggleHasReceivedStakeFromStakePools}
+              >
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                  labelPlacement="end"
+                />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                  labelPlacement="end"
+                />
+              </RadioGroup>
+            </FormGroup>
+
+            <FormGroup>
+              <FormLabel>Validator is in a data center with a ...</FormLabel>
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedActiveStakeSaturation["0"]}
+                    onChange={() => activeStakeSaturationSelectHandler("0")}
+                  />
+                }
+                label="normal percent of the active stake"
               />
-            }
-            label="normal percent of the active stake"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedActiveStakeSaturation["-1"]}
-                onChange={() => activeStakeSaturationSelectHandler("-1")}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedActiveStakeSaturation["-1"]}
+                    onChange={() => activeStakeSaturationSelectHandler("-1")}
+                  />
+                }
+                label="high percent of the active stake"
               />
-            }
-            label="high percent of the active stake"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={selectedActiveStakeSaturation["-2"]}
-                onChange={() => activeStakeSaturationSelectHandler("-2")}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={selectedActiveStakeSaturation["-2"]}
+                    onChange={() => activeStakeSaturationSelectHandler("-2")}
+                  />
+                }
+                label="very high percent of the active stake"
               />
-            }
-            label="very high percent of the active stake"
-          />
-        </FormGroup>
+            </FormGroup>
+          </>
+        ) : null}
+
+        <Button onClick={toggleAdvancedSearch}>
+          {advancedSearch ? "Go To Basic Search" : "Go To Advanced Search"}
+        </Button>
       </form>
     </Container>
   );

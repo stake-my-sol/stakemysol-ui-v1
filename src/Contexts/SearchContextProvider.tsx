@@ -12,6 +12,16 @@ function SearchContextProvider({ children }: SearchContextProps) {
   const [activeStep, setActiveStep] = useState(0);
 
   // Search form state
+  const [advancedSearch, toggleAdvancedSearch] = useToggle(false);
+  const [formFilter, setFormFilter] = useState({
+    apy: true,
+    commission: true,
+    votePerformance: false,
+    skipRate: false,
+    activeStake: false,
+    activeStakeSaturation: false,
+    receivedStakeFromStakePools: false,
+  });
   const [validatorsCount, setValidatorsCount] = useState<number>(5);
   const [selectedNames, setSelectedNames] = useState<string[] | undefined>();
   const [selectedApy, setSelectedApy] = useState<number[] | number>([6, 8]);
@@ -44,6 +54,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
     return {
       foundValidators,
       activeStep,
+      advancedSearch,
       validatorsCount,
       selectedNames,
       selectedApy,
@@ -58,6 +69,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
       hasReceivedStakeFromStakePools,
       setFoundValidators,
       setActiveStep,
+      toggleAdvancedSearch,
       setValidatorsCount,
       setSelectedNames,
       setSelectedApy,
@@ -73,6 +85,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
     };
   }, [
     foundValidators,
+    advancedSearch,
     activeStep,
     validatorsCount,
     selectedNames,
@@ -87,6 +100,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedSoftwareVersions,
     hasReceivedStakeFromStakePools,
     setFoundValidators,
+    toggleAdvancedSearch,
     setActiveStep,
     setSelectedActiveStake,
     setValidatorsCount,
