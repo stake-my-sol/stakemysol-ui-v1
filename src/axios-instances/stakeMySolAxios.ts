@@ -7,7 +7,7 @@ const stakeMySolAxios = Axios.create({
     "Content-Type": "application/json",
     // "Accept-Encoding": "gzip, deflate, br",
     // Connection: "keep-alive",
-    Accept: "*/*",
+    // Accept: "*/*",
   },
 });
 

@@ -4,17 +4,25 @@ import { ReactNode } from "react";
 interface FieldWrapperProps {
   children: ReactNode | ReactNode[];
   checked: boolean;
-  setChecked: (checked: boolean) => void;
+  toggleChecked: () => void;
 }
 
-function FieldWrapper({ children, checked, setChecked }: FieldWrapperProps) {
+function FieldWrapper({ children, checked, toggleChecked }: FieldWrapperProps) {
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box
+      sx={{
+        position: "relative",
+        border: "1px solid black",
+        borderRadius: "10px",
+        p: 1,
+        m: 1,
+      }}
+    >
       <>
         <Switch
-          sx={{ position: "absolute" }}
+          sx={{ position: "absolute", top: 1, right: 1 }}
           checked={checked}
-          onChange={() => setChecked(!checked)}
+          onChange={toggleChecked}
         />
         <>{children}</>
       </>
