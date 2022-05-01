@@ -35,7 +35,7 @@ function SingleValidatorResult({
       color="secondary"
       onClick={() => addValidator(validator)}
     >
-      Add to List
+      Add
     </Button>
   );
 
@@ -51,7 +51,7 @@ function SingleValidatorResult({
         color="error"
         onClick={() => removeValidator(validator)}
       >
-        Remove from List
+        Remove
       </Button>
     );
   }
@@ -128,7 +128,7 @@ function SingleValidatorResult({
               color="secondary"
               onClick={() => handleOpenShowMore(validator)}
             >
-              Show more
+              More
             </Button>
           </Grid>
         </Grid>
