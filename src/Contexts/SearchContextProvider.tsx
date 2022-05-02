@@ -31,7 +31,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
     setSelectedApy,
     selectedApyActive,
     toggleSelectedApyActive,
-  ] = useFormField<number[] | number>([6, 8], true);
+  ] = useFormField<number[] | number>([5, 8], true);
   const [
     selectedCommission,
     setSelectedCommission,
