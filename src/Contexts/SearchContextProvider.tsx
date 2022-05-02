@@ -26,8 +26,12 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedNamesActive,
     toggleSelectedNamesActive,
   ] = useFormField<string[] | undefined>(undefined, true);
-  const [selectedApy, setSelectedApy, selectedApyActive, toggleSelectedApy] =
-    useFormField<number[] | number>([6, 8], true);
+  const [
+    selectedApy,
+    setSelectedApy,
+    selectedApyActive,
+    toggleSelectedApyActive,
+  ] = useFormField<number[] | number>([6, 8], true);
   const [
     selectedCommission,
     setSelectedCommission,
@@ -39,19 +43,19 @@ function SearchContextProvider({ children }: SearchContextProps) {
     setSelectedVotePerformance,
     selectedVotePerformanceActive,
     toggleSelectedVotePerformanceActive,
-  ] = useFormField<number[] | number>([80, 100], true);
+  ] = useFormField<number[] | number>([80, 100], false);
   const [
     selectedSkipRate,
     setSelectedSkipRate,
     selectedSkipRateActive,
     toggleSelectedSkipRateActive,
-  ] = useFormField<number[] | number>([0, 10], true);
+  ] = useFormField<number[] | number>([0, 10], false);
   const [
     selectedActiveStake,
     setSelectedActiveStake,
     selectedActiveStakeActive,
     toggleSelectedActiveStakeActive,
-  ] = useFormField<number[] | number>([0, 5000000], true);
+  ] = useFormField<number[] | number>([0, 5000000], false);
   // mapping each label to its corresponding value in database
   const [
     selectedActiveStakeSaturation,
@@ -64,23 +68,27 @@ function SearchContextProvider({ children }: SearchContextProps) {
     setSelectedAsns,
     selectedAsnsActive,
     toggleSelectedAsnsActive,
-  ] = useFormField<number[] | undefined>(undefined, true);
+  ] = useFormField<number[] | undefined>(undefined, false);
   const [
     selectedDatacenters,
     setSelectedDatacenters,
     selectedDatacentersActive,
-    setSelectedDatacentersActive,
-  ] = useFormField<string[] | undefined>(undefined, true);
+    toggleSelectedDatacentersActive,
+  ] = useFormField<string[] | undefined>(undefined, false);
 
   const [
     selectedSoftwareVersions,
     setSelectedSoftwareVersions,
     selectedSoftwareVersionsActive,
-    setSelectedSoftwareVersionsActive,
+    toggleSelectedSoftwareVersionsActive,
   ] = useFormField<string[] | undefined>(undefined, false);
 
-  const [hasReceivedStakeFromStakePools, toggleHasReceivedStakeFromStakePools] =
-    useToggle(false);
+  const [
+    hasReceivedStakeFromStakePools,
+    setHasReceivedStakeFromStakePools,
+    hasReceivedStakeFromStakePoolsActive,
+    toggleHasReceivedStakeFromStakePoolsActive,
+  ] = useFormField<boolean>(false, false);
 
   const contextValue = useMemo(() => {
     return {
@@ -101,7 +109,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
       selectedApy,
       setSelectedApy,
       selectedApyActive,
-      toggleSelectedApy,
+      toggleSelectedApyActive,
       selectedCommission,
       setSelectedCommission,
       selectedCommissionActive,
@@ -123,7 +131,9 @@ function SearchContextProvider({ children }: SearchContextProps) {
       selectedActiveStakeSaturationActive,
       toggleSelectedActiveStakeSaturationActive,
       hasReceivedStakeFromStakePools,
-      toggleHasReceivedStakeFromStakePools,
+      setHasReceivedStakeFromStakePools,
+      hasReceivedStakeFromStakePoolsActive,
+      toggleHasReceivedStakeFromStakePoolsActive,
       selectedAsns,
       setSelectedAsns,
       selectedAsnsActive,
@@ -131,11 +141,11 @@ function SearchContextProvider({ children }: SearchContextProps) {
       selectedDatacenters,
       setSelectedDatacenters,
       selectedDatacentersActive,
-      setSelectedDatacentersActive,
+      toggleSelectedDatacentersActive,
       selectedSoftwareVersions,
       setSelectedSoftwareVersions,
       selectedSoftwareVersionsActive,
-      setSelectedSoftwareVersionsActive,
+      toggleSelectedSoftwareVersionsActive,
     };
   }, [
     foundValidators,
@@ -155,7 +165,7 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedApy,
     setSelectedApy,
     selectedApyActive,
-    toggleSelectedApy,
+    toggleSelectedApyActive,
     selectedCommission,
     setSelectedCommission,
     selectedCommissionActive,
@@ -177,7 +187,9 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedActiveStakeSaturationActive,
     toggleSelectedActiveStakeSaturationActive,
     hasReceivedStakeFromStakePools,
-    toggleHasReceivedStakeFromStakePools,
+    setHasReceivedStakeFromStakePools,
+    hasReceivedStakeFromStakePoolsActive,
+    toggleHasReceivedStakeFromStakePoolsActive,
     selectedAsns,
     setSelectedAsns,
     selectedAsnsActive,
@@ -185,11 +197,11 @@ function SearchContextProvider({ children }: SearchContextProps) {
     selectedDatacenters,
     setSelectedDatacenters,
     selectedDatacentersActive,
-    setSelectedDatacentersActive,
+    toggleSelectedDatacentersActive,
     selectedSoftwareVersions,
     setSelectedSoftwareVersions,
     selectedSoftwareVersionsActive,
-    setSelectedSoftwareVersionsActive,
+    toggleSelectedSoftwareVersionsActive,
   ]);
 
   return (

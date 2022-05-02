@@ -43,19 +43,31 @@ export default function Search() {
   const {
     activeStep,
     setActiveStep,
-    selectedApy,
-    selectedActiveStakeSaturation,
-    transformedDataCenterConcentrationScore,
-    selectedSkipRate,
-    selectedVotePerformance,
-    selectedActiveStake,
+    advancedSearch,
     validatorsCount,
+    validatorsCountActive,
     selectedNames,
-    selectedAsns,
-    selectedDatacenters,
-    selectedSoftwareVersions,
+    selectedNamesActive,
+    selectedApy,
+    selectedApyActive,
     selectedCommission,
+    selectedCommissionActive,
+    selectedVotePerformance,
+    selectedVotePerformanceActive,
+    selectedSkipRate,
+    selectedSkipRateActive,
+    selectedActiveStake,
+    selectedActiveStakeActive,
+    selectedActiveStakeSaturation,
+    selectedActiveStakeSaturationActive,
     hasReceivedStakeFromStakePools,
+    hasReceivedStakeFromStakePoolsActive,
+    selectedAsns,
+    selectedAsnsActive,
+    selectedDatacenters,
+    selectedDatacentersActive,
+    selectedSoftwareVersions,
+    selectedSoftwareVersionsActive,
     setFoundValidators,
   } = useContext(SearchContext)!;
 
@@ -95,25 +107,64 @@ export default function Search() {
     const transformedActiveStake = selectedActiveStake.map(
       (el: number) => el * 1000000000,
     );
+
+    let reqQuery: any = {
+      count: Number(validatorsCount),
+    };
+
+    if (selectedNamesActive) {
+      reqQuery.names = selectedNames;
+    }
+
+    if (selectedApyActive) {
+      reqQuery.apy = transformedApy;
+    }
+
+    if (selectedCommissionActive) {
+      reqQuery.currentValidatorCommission = selectedCommission;
+    }
+
+    if (advancedSearch) {
+      if (selectedAsnsActive) {
+        reqQuery.asns = selectedAsns;
+      }
+
+      if (selectedDatacentersActive) {
+        reqQuery.datacenters = selectedDatacenters;
+      }
+
+      if (selectedSoftwareVersionsActive) {
+        reqQuery.softwareVersions = selectedSoftwareVersions;
+      }
+
+      if (selectedVotePerformanceActive) {
+        reqQuery.votingPerformance = transformedVotePerformance;
+      }
+
+      if (selectedActiveStakeActive) {
+        reqQuery.activeStake = transformedActiveStake;
+      }
+
+      if (selectedSkipRateActive) {
+        reqQuery.skipRate = transformedSkipRate;
+      }
+
+      if (hasReceivedStakeFromStakePoolsActive) {
+        reqQuery.receivedStakeFromStakePools = hasReceivedStakeFromStakePools;
+      }
+
+      if (selectedActiveStakeSaturationActive) {
+        reqQuery.dataCenterConcentrationScore =
+          transformedDataCenterConcentrationScore;
+      }
+    }
+
     const reqBody = {
       network: reqNetwork,
-      query: {
-        count: Number(validatorsCount),
-        names: selectedNames,
-        apy: transformedApy,
-        asns: selectedAsns,
-        dataCenters: selectedDatacenters,
-        softwareVersions: selectedSoftwareVersions,
-        currentValidatorCommission: selectedCommission,
-        // votingPerformance: transformedVotePerformance,
-        activeStake: transformedActiveStake,
-        skipRate: transformedSkipRate,
-        receivedStakeFromStakePools: hasReceivedStakeFromStakePools,
-        dataCenterConcentrationScore: transformedDataCenterConcentrationScore,
-      },
+      query: reqQuery,
     };
     console.log(
-      "🚀 ~ file: SearchForm.tsx ~ line 135 ~ searchHandler ~ reqBody",
+      "🚀 ~ file: SearchForm.tsx ~ line 141 ~ searchHandler ~ reqBody",
       reqBody,
     );
 

@@ -14,8 +14,10 @@ function FieldWrapper({ children, checked, toggleChecked }: FieldWrapperProps) {
         position: "relative",
         border: "1px solid black",
         borderRadius: "10px",
-        p: 1,
-        m: 1,
+        p: 2,
+        pt: 4,
+        pd: 0,
+        my: 1,
       }}
     >
       <>
