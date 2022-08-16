@@ -12,6 +12,7 @@ import theme from "../styles/Theme/theme";
 import createEmotionCache from "../src/utils/createEmotionCache";
 import Layout from "../src/Components/Layout/Layout";
 import "../styles/globals.css";
+import { SWRConfig } from "swr";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -22,26 +23,28 @@ interface MyAppProps extends AppProps {
 export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <NetworkProvider>
-        <WalletProvider>
-          <GeneralNetworkDataProvider>
-            <SearchContextProvider>
-              <SelectedValidatorsProvider>
-                <ThemeProvider theme={theme}>
-                  <CssBaseline />
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </ThemeProvider>
-              </SelectedValidatorsProvider>
-            </SearchContextProvider>
-          </GeneralNetworkDataProvider>
-        </WalletProvider>
-      </NetworkProvider>
-    </CacheProvider>
+    <SWRConfig value={{ refreshInterval: 300000 }}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <NetworkProvider>
+          <WalletProvider>
+            <GeneralNetworkDataProvider>
+              <SearchContextProvider>
+                <SelectedValidatorsProvider>
+                  <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </ThemeProvider>
+                </SelectedValidatorsProvider>
+              </SearchContextProvider>
+            </GeneralNetworkDataProvider>
+          </WalletProvider>
+        </NetworkProvider>
+      </CacheProvider>
+    </SWRConfig>
   );
 }

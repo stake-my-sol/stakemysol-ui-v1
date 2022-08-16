@@ -85,7 +85,6 @@ function SelectedValidatorsProvider({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function init(_initialState: SelectedValidatorsState) {
     const storedState = loadFromLocalStorage(SELECTED_VALIDATORS_STATE);
 

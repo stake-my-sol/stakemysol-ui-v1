@@ -13,6 +13,7 @@ import { NetworkContext } from "../src/Contexts/NetworkProvider";
 import useToggle from "../src/hooks/useToggle";
 import { Validator } from "../src/@types/types";
 import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
+import useSWR from "swr";
 
 function ValidatorsPage() {
   const { network } = useContext(NetworkContext)!;
@@ -37,41 +38,79 @@ function ValidatorsPage() {
     setSelectedValidator(null);
   };
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const getValidators = async () => {
-      try {
-        const reqNetwork =
-          network === WalletAdapterNetwork.Mainnet ? "mainnet" : network;
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+  //   const getValidators = async () => {
+  //     try {
+  //       const reqNetwork =
+  //         network === WalletAdapterNetwork.Mainnet ? "mainnet" : network;
 
-        const reqBody = {
-          network: reqNetwork,
-          page,
-          perPage,
-          sort: {
-            sortBy,
-            direction: sortDir,
-          },
-        };
-        const { data } = await stakeMySolAxios.post("/data/validators", {
-          signal: abortController.signal,
-          data: reqBody,
-        });
+  //       const reqBody = {
+  //         network: reqNetwork,
+  //         page,
+  //         perPage,
+  //         sort: {
+  //           sortBy,
+  //           direction: sortDir,
+  //         },
+  //       };
+  //       const { data } = await stakeMySolAxios.post("/data/validators", {
+  //         signal: abortController.signal,
+  //         data: reqBody,
+  //       });
 
-        setValidators(data);
-      } catch (error: any) {
-        if (error.name === "AbortError") {
-          // handle error thrown by aborting request
-        }
+  //       setValidators(data);
+  //     } catch (error: any) {
+  //       if (error.name === "AbortError") {
+  //         // handle error thrown by aborting request
+  //       }
+  //     }
+  //   };
+
+  //   getValidators();
+
+  //   return () => {
+  //     abortController.abort();
+  //   };
+  // }, [network, page, perPage, sortBy, sortDir]);
+
+  const validatorsFetcher = async (...args: any[]) => {
+    try {
+      const reqNetwork =
+        args[0] === WalletAdapterNetwork.Mainnet ? "mainnet" : network;
+
+      const reqBody = {
+        network: reqNetwork,
+        page: args[1],
+        perPage: args[2],
+        sort: {
+          sortBy: args[3],
+          direction: args[4],
+        },
+      };
+      const { data } = await stakeMySolAxios.post("/data/validators", {
+        data: reqBody,
+      });
+
+      return data;
+    } catch (error: any) {
+      if (error.name === "AbortError") {
+        // handle error thrown by aborting request
       }
-    };
 
-    getValidators();
+      console.log(`Failed at validatorsFetcher. Error ${error}`);
+      throw error;
+    }
+  };
 
-    return () => {
-      abortController.abort();
-    };
-  }, [network, page, perPage, sortBy, sortDir]);
+  const { data, error } = useSWR(
+    [network, page, perPage, sortBy, sortDir],
+    validatorsFetcher,
+  );
+
+  useEffect(() => {
+    setValidators(data);
+  }, [data]);
 
   let modal = null;
   if (!_.isEmpty(selectedValidator)) {

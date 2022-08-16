@@ -77,7 +77,7 @@ function NetworkContextProvider({ children }: NetworkContextProviderProps) {
         });
       },
     }),
-    [state.network, dispatch],
+    [state.network],
   );
 
   return (
