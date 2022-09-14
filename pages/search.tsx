@@ -8,7 +8,7 @@ import {
 } from "react";
 import _ from "lodash";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import stakeMySolAxios from "../src/axios-instances";
+import stakeMySolAxios from "../axios-instances";
 import Head from "next/head";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -18,10 +18,10 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import SearchForm from "../src/Components/SearchPage/SearchForm/SearchForm";
-import ValidatorsSelection from "../src/Components/SearchPage/DelegationForm/DelegationForm";
-import { NetworkContext } from "../src/Contexts/NetworkProvider";
-import { SearchContext } from "../src/Contexts/SearchContextProvider";
+import SearchForm from "../Components/SearchPage/SearchForm/SearchForm";
+import ValidatorsSelection from "../Components/SearchPage/DelegationForm/DelegationForm";
+import { NetworkContext } from "../Contexts/NetworkProvider";
+import { SearchContext } from "../Contexts/SearchContextProvider";
 // import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
 
 const steps = ["Search", "Delegation"];

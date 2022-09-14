@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: any) => ({
   Layout: {
     backgroundColor: theme.palette.grey[300],
     width: "100%",
-    minHeight: "100vh",
   },
 }));
 
@@ -41,7 +40,7 @@ function Layout({ children }: LayoutProps) {
     <Box className={classes.Layout}>
       <Header />
       <SelectedValidatorsDrawer drawer={drawer} toggleDrawer={toggleDrawer} />
-      {children}
+      <Box sx={{ minHeight: "90vh" }}>{children}</Box>
       <Fab
         onClick={toggleDrawer}
         classes={{ root: classes.root }}

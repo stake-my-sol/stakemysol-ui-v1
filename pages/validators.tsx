@@ -3,16 +3,16 @@ import Head from "next/head";
 import _ from "lodash";
 import { Box, Container, Divider, Modal } from "@mui/material";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import stakeMySolAxios from "../src/axios-instances";
-import PaginationCmp from "../src/Components/ValidatorsResultPagination";
-import RankingBar from "../src/Components/RankingBar";
-import ValidatorsResult from "../src/Components/ValidatorsResult";
-import SelectedValidatorModal from "../src/Components/SelectedValidatorModal";
-import { NetworkContext } from "../src/Contexts/NetworkProvider";
+import stakeMySolAxios from "../axios-instances";
+import PaginationCmp from "../Components/ValidatorsResultPagination";
+import RankingBar from "../Components/RankingBar";
+import ValidatorsResult from "../Components/ValidatorsResult";
+import SelectedValidatorModal from "../Components/SelectedValidatorModal";
+import { NetworkContext } from "../Contexts/NetworkProvider";
 
-import useToggle from "../src/hooks/useToggle";
-import { Validator } from "../src/@types/types";
-import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
+import useToggle from "../hooks/useToggle";
+import { Validator } from "../@types/types";
+import { GeneralNetworkDataContext } from "../Contexts/GeneralNetworkDataProvider";
 import useSWR from "swr";
 
 function ValidatorsPage() {
