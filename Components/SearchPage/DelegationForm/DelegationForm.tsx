@@ -13,6 +13,7 @@ export default function ValidatorsSelection() {
       <Typography textAlign="center" variant="h6" gutterBottom>
         Select Validators and Amount
       </Typography>
+      <Grid item xs={12}></Grid>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           {foundValidators.map((v: Validator) => (

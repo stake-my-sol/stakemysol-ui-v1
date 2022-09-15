@@ -14,12 +14,15 @@ import {
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import ValidatorsCountInput from "./ValidatorsCountInput";
+import ValidatorsCountInput from "../../CustomNumberInput";
 import FieldWrapper from "./FieldWrapper";
 import { NetworkContext } from "../../../Contexts/NetworkProvider";
 import { GeneralNetworkDataContext } from "../../../Contexts/GeneralNetworkDataProvider";
 import { SearchContext } from "../../../Contexts/SearchContextProvider";
-import { MAX_VALIDATORS_TO_DELEGATE_TO } from "../../../Constants";
+import {
+  MAX_VALIDATORS_TO_DELEGATE_TO,
+  MIN_VALIDATORS_TO_DELEGATE_TO,
+} from "../../../Constants";
 
 import {
   SearchFormSelectOption,
@@ -188,6 +191,8 @@ function SearchPage() {
           <ValidatorsCountInput
             value={validatorsCount}
             setValue={setValidatorsCount}
+            max={MAX_VALIDATORS_TO_DELEGATE_TO}
+            min={MIN_VALIDATORS_TO_DELEGATE_TO}
           />
           <Button
             variant="contained"
