@@ -25,7 +25,7 @@ import {
   SearchFormSelectOption,
   SoftwareVersion,
   Validator,
-} from "../../../@types/types";
+} from "../../../@types";
 import CustomSlider from "../../CustomSlider";
 
 function SearchPage() {

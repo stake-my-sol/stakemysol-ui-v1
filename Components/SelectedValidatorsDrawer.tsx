@@ -12,7 +12,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import TrunkedTypography from "./TrunkedTypography";
-import { ISelectedValidatorsContext } from "../@types/types";
+import { ISelectedValidatorsContext } from "../@types";
 import { SelectedValidatorsContext } from "../Contexts/SelectedValidatorsProvider";
 import { NetworkContext } from "../Contexts/NetworkProvider";
 

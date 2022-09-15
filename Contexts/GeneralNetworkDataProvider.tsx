@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { GeneralNetworkDataState } from "../@types/types";
+import { GeneralNetworkDataState } from "../@types";
 import { NetworkContext } from "./NetworkProvider";
 import stakeMySolAxios from "../axios-instances";
 

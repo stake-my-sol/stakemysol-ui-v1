@@ -11,7 +11,7 @@ import SelectedValidatorModal from "../Components/SelectedValidatorModal";
 import { NetworkContext } from "../Contexts/NetworkProvider";
 
 import useToggle from "../hooks/useToggle";
-import { Validator } from "../@types/types";
+import { Validator } from "../@types";
 import { GeneralNetworkDataContext } from "../Contexts/GeneralNetworkDataProvider";
 import useSWR from "swr";
 

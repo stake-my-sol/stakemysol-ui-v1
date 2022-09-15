@@ -13,7 +13,7 @@ import {
   SelectedValidatorsActions,
   SelectedValidatorsState,
   SelectedValidator,
-} from "../@types/types";
+} from "../@types";
 import { SELECTED_VALIDATORS_STATE } from "../Constants";
 import {
   loadFromLocalStorage,

@@ -1,6 +1,6 @@
 import { useMemo, createContext, ReactNode, useState } from "react";
 import useToggle from "../hooks/useToggle";
-import { Validator } from "../@types/types";
+import { Validator } from "../@types";
 import useFormField from "../hooks/useFormField";
 
 interface SearchContextProps {

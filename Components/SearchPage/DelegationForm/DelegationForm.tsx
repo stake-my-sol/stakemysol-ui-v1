@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { SearchContext } from "../../../Contexts/SearchContextProvider";
 
-import { Validator } from "../../../@types/types";
+import { Validator } from "../../../@types";
 
 export default function ValidatorsSelection() {
   const { foundValidators } = useContext(SearchContext);

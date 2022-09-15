@@ -11,7 +11,7 @@ import {
 import { SelectedValidatorsContext } from "../../Contexts/SelectedValidatorsProvider";
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 
-import { Validator, ISelectedValidatorsContext } from "../../@types/types";
+import { Validator, ISelectedValidatorsContext } from "../../@types";
 import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
 
 interface SingleValidatorResultProps {

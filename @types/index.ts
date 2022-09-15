@@ -1,5 +1,6 @@
 import { Dispatch } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { PublicKey } from "@solana/web3.js";
 
 export type SelectedValidatorsActions =
   | {
@@ -137,4 +138,18 @@ export interface NetworkReducerAction {
   payload?: {
     network: WalletAdapterNetwork;
   };
+}
+
+export interface IUIStakeAccount {
+  publicKey: PublicKey;
+  balance: number;
+  status: "uninitialized" | "initialized" | "delegated" | "rewardsPool";
+  // delegatedTo: PublicKey | null;
+  // createdBySMS: boolean;
+  stakeAuthority: PublicKey;
+  withdrawAuthority: PublicKey;
+}
+
+export interface IPotentialSMSPubkeys {
+  [key: string]: string;
 }

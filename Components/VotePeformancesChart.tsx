@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-import { VotePerformance } from "../@types/types";
+import { VotePerformance } from "../@types";
 
 ChartJS.register(
   CategoryScale,

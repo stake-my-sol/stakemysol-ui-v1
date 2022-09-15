@@ -2,7 +2,7 @@ import _ from "lodash";
 import { Stack, Paper, Typography } from "@mui/material";
 import SingleValidatorResult from "./SingleValidatorResult/SingleValidatorResult";
 import SingleValidatorResultSkeleton from "./SingleValidatorResult/SingleValidatorResultSkeleton";
-import { Validator } from "../@types/types";
+import { Validator } from "../@types";
 
 interface ValidatorsResultProps {
   validators: Validator[];

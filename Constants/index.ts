@@ -13,3 +13,5 @@ export const SELECTED_VALIDATORS_STATE = "selectedValidatorsState";
 export const GENERAL_NETWORK_DATA_STATE_KEY = "general network data";
 
 export const MAX_VALIDATORS_TO_DELEGATE_TO = 50;
+
+export const STAKE_ACCOUNT_SEED_PREFIX = "SmS-stake-account";

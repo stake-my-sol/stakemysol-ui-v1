@@ -8,7 +8,7 @@ import {
   Chip,
   Container,
 } from "@mui/material";
-import { Validator } from "../@types/types";
+import { Validator } from "../@types";
 import TotalScoresGraph from "./TotalScoresGraph";
 import CommissionsChart from "./CommissionsChart";
 import VotePerformanceChart from "./VotePeformancesChart";

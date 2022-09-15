@@ -8,7 +8,7 @@ import {
   Legend,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
-import { ScoreChartLabel } from "../@types/types";
+import { ScoreChartLabel } from "../@types";
 
 ChartJS.register(
   RadialLinearScale,
