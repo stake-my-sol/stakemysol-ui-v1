@@ -16,3 +16,6 @@ export const MAX_VALIDATORS_TO_DELEGATE_TO = 50;
 export const MIN_VALIDATORS_TO_DELEGATE_TO = 0;
 
 export const STAKE_ACCOUNT_SEED_PREFIX = "SmS-stake-account";
+
+export const MIN_TO_STAKE_IN_SOLS = 0;
+export const MAX_TO_STAKE_IN_SOLS = Infinity;

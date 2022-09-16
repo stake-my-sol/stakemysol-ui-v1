@@ -24,7 +24,7 @@ import { NetworkContext } from "../Contexts/NetworkProvider";
 import { SearchContext } from "../Contexts/SearchContextProvider";
 // import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
 
-const steps = ["Search", "Delegation"];
+const steps = ["Search", "Stake"];
 
 const getStepContent = (step: number) => {
   switch (step) {

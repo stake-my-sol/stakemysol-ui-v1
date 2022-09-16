@@ -6,13 +6,13 @@ export type SelectedValidatorsActions =
   | {
       type: "addValidator";
       payload: {
-        validator: Validator;
+        validator: IValidator;
       };
     }
   | {
       type: "removeValidator";
       payload: {
-        validator: Validator;
+        validator: IValidator;
       };
     }
   | {
@@ -27,7 +27,7 @@ export type SelectedValidatorsActions =
 
 export type SelectedValidator = {
   network: WalletAdapterNetwork;
-  validator: Validator;
+  validator: IValidator;
 };
 
 export type SelectedValidatorsState = SelectedValidator[] | null;
@@ -47,7 +47,7 @@ export interface VotePerformance {
   performance: number | null | undefined; // 0.85
 }
 
-export interface Validator {
+export interface IValidator {
   account: string; // "Frog1Fks1AVN8ywFH3HTFeYojq6LQqoEPzgQFx2Kz5Ch"
   active_stake: number | null; // 361328504195019
   admin_warning: string | null; // null
@@ -98,8 +98,8 @@ export interface ScoreChartLabel {
 
 export interface ISelectedValidatorsContext {
   selectedValidators: SelectedValidatorsState;
-  addValidator: (validator: Validator) => void;
-  removeValidator: (validator: Validator) => void;
+  addValidator: (validator: IValidator) => void;
+  removeValidator: (validator: IValidator) => void;
   reset: () => void;
 }
 

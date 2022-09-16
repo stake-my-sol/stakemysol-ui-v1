@@ -8,13 +8,13 @@ import {
   Chip,
   Container,
 } from "@mui/material";
-import { Validator } from "../@types";
+import { IValidator } from "../@types";
 import TotalScoresGraph from "./TotalScoresGraph";
 import CommissionsChart from "./CommissionsChart";
 import VotePerformanceChart from "./VotePeformancesChart";
 
 interface SelectedValidatorModalProps {
-  validator: Validator;
+  validator: IValidator;
 }
 
 function SelectedValidatorModal({ validator }: SelectedValidatorModalProps) {

@@ -11,24 +11,24 @@ import SelectedValidatorModal from "../Components/SelectedValidatorModal";
 import { NetworkContext } from "../Contexts/NetworkProvider";
 
 import useToggle from "../hooks/useToggle";
-import { Validator } from "../@types";
+import { IValidator } from "../@types";
 import { GeneralNetworkDataContext } from "../Contexts/GeneralNetworkDataProvider";
 import useSWR from "swr";
 
 function ValidatorsPage() {
   const { network } = useContext(NetworkContext)!;
   const { count } = useContext(GeneralNetworkDataContext)!;
-  const [validators, setValidators] = useState<Validator[]>([]);
+  const [validators, setValidators] = useState<IValidator[]>([]);
   const [sortBy, setSortBy] = useState<string>("total_score");
   const [sortDir, setSortDir] = useState<number>(-1);
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(5);
-  const [selectedValidator, setSelectedValidator] = useState<Validator | null>(
+  const [selectedValidator, setSelectedValidator] = useState<IValidator | null>(
     null,
   );
   const [openModal, toggleOpenModal] = useToggle(false);
 
-  const handleOpenShowMore = (validator: Validator) => {
+  const handleOpenShowMore = (validator: IValidator) => {
     toggleOpenModal();
     setSelectedValidator(validator);
   };

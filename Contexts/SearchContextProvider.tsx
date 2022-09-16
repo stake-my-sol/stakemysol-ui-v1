@@ -1,6 +1,6 @@
 import { useMemo, createContext, ReactNode, useState } from "react";
 import useToggle from "../hooks/useToggle";
-import { Validator } from "../@types";
+import { IValidator } from "../@types";
 import useFormField from "../hooks/useFormField";
 
 interface SearchContextProps {
@@ -9,7 +9,7 @@ interface SearchContextProps {
 export const SearchContext = createContext<any>(null);
 
 function SearchContextProvider({ children }: SearchContextProps) {
-  const [foundValidators, setFoundValidators] = useState<Validator[]>([]);
+  const [foundValidators, setFoundValidators] = useState<IValidator[]>([]);
   const [activeStep, setActiveStep] = useState(0);
 
   // Search form state

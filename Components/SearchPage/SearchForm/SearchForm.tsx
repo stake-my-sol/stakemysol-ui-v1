@@ -27,7 +27,7 @@ import {
 import {
   SearchFormSelectOption,
   SoftwareVersion,
-  Validator,
+  IValidator,
 } from "../../../@types";
 import CustomSlider from "../../CustomSlider";
 
@@ -193,6 +193,7 @@ function SearchPage() {
             setValue={setValidatorsCount}
             max={MAX_VALIDATORS_TO_DELEGATE_TO}
             min={MIN_VALIDATORS_TO_DELEGATE_TO}
+            decimalScale={0}
           />
           <Button
             variant="contained"

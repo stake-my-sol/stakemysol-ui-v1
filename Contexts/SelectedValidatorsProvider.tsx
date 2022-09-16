@@ -8,7 +8,7 @@ import {
 } from "react";
 import { findIndex } from "lodash";
 import {
-  Validator,
+  IValidator,
   ISelectedValidatorsContext,
   SelectedValidatorsActions,
   SelectedValidatorsState,
@@ -116,12 +116,12 @@ function SelectedValidatorsProvider({
   const contextValue = useMemo(() => {
     return {
       selectedValidators,
-      addValidator: (validator: Validator) =>
+      addValidator: (validator: IValidator) =>
         dispatch({
           type: "addValidator",
           payload: { validator },
         }),
-      removeValidator: (validator: Validator) =>
+      removeValidator: (validator: IValidator) =>
         dispatch({
           type: "removeValidator",
           payload: { validator },
