@@ -13,6 +13,7 @@ import { NetworkContext } from "../../Contexts/NetworkProvider";
 
 import { IValidator, ISelectedValidatorsContext } from "../../@types";
 import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
+import Image from "next/future/image";
 
 interface SingleValidatorResultProps {
   validator: IValidator;
@@ -57,7 +58,6 @@ function SingleValidatorResult({
   }
   return (
     <Paper sx={{ backgroundColor: "grey.50", flexGrow: 1, padding: 1 }}>
-      {/* <SingleValidatorResultSkeleton /> */}
       <Grid direction="column" container>
         <Grid
           container
@@ -69,10 +69,12 @@ function SingleValidatorResult({
         >
           <Grid item xs={2}>
             <Avatar
-              alt="validator_avatar"
+              alt="validator avatar"
               src={validator.avatar_url!}
               sx={{ width: 50, height: 50 }}
-            />
+            >
+              <Image alt="validator avatar" src={validator.avatar_url!} fill />
+            </Avatar>
           </Grid>
           <Grid
             container

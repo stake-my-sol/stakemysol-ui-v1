@@ -11,6 +11,7 @@ import NetworkProvider from "../Contexts/NetworkProvider";
 import theme from "../styles/Theme/theme";
 import createEmotionCache from "../Components/createEmotionCache";
 import Layout from "../Components/Layout/Layout";
+import ErrorBoundary from "../Components/ErrorBoundary";
 import "../styles/globals.css";
 import { SWRConfig } from "swr";
 
@@ -24,27 +25,32 @@ export default function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <SWRConfig value={{ refreshInterval: 300000 }}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <NetworkProvider>
-          <WalletProvider>
-            <GeneralNetworkDataProvider>
-              <SearchContextProvider>
-                <SelectedValidatorsProvider>
-                  <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <Layout>
-                      <Component {...pageProps} />
-                    </Layout>
-                  </ThemeProvider>
-                </SelectedValidatorsProvider>
-              </SearchContextProvider>
-            </GeneralNetworkDataProvider>
-          </WalletProvider>
-        </NetworkProvider>
-      </CacheProvider>
+      <ErrorBoundary>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+            />
+          </Head>
+          <NetworkProvider>
+            <WalletProvider>
+              <GeneralNetworkDataProvider>
+                <SearchContextProvider>
+                  <SelectedValidatorsProvider>
+                    <ThemeProvider theme={theme}>
+                      <CssBaseline />
+                      <Layout>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </ThemeProvider>
+                  </SelectedValidatorsProvider>
+                </SearchContextProvider>
+              </GeneralNetworkDataProvider>
+            </WalletProvider>
+          </NetworkProvider>
+        </CacheProvider>
+      </ErrorBoundary>
     </SWRConfig>
   );
 }
