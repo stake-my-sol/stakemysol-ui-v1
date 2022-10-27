@@ -31,14 +31,12 @@ function NetworkContextProvider({ children }: NetworkContextProviderProps) {
 
     switch (type) {
       case "init_stored":
-        const storedNetwork = loadFromLocalStorage("network");
         return {
           ...state,
-          network: storedNetwork ? storedNetwork : DEFAULT_NETWORK,
+          network: DEFAULT_NETWORK,
         };
       case "set_network":
         if (payload) {
-          saveToLocalStorage("network", payload.network);
           return {
             ...state,
             network: payload.network,
@@ -54,12 +52,6 @@ function NetworkContextProvider({ children }: NetworkContextProviderProps) {
   };
 
   const [state, dispatch] = useReducer(networkReducer, initialState);
-
-  useEffect(() => {
-    dispatch({
-      type: "init_stored",
-    });
-  }, []);
 
   const contextValue = useMemo(
     () => ({

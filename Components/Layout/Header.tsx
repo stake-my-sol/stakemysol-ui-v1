@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import WalletConnection from "../WalletConnection";
-import NetworksMenu from "./NetworksMenu";
+// import NetworksMenu from "./NetworksMenu";
 
 const pages = [
   { label: "Validators", to: "/validators" },
@@ -130,9 +130,9 @@ function ResponsiveAppBar() {
             <WalletConnection />
           </Box>
 
-          <Box sx={{ flexGrow: 0, marginLeft: "1rem" }}>
+          {/* <Box sx={{ flexGrow: 0, marginLeft: "1rem" }}>
             <NetworksMenu />
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

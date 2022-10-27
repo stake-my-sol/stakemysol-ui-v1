@@ -186,6 +186,7 @@ export default function Search() {
         await searchHandler();
         break;
       case 1:
+        // await stakeHandler();
         break;
       default:
         throw new Error(`Invalid active step ${activeStep}`);
@@ -250,13 +251,16 @@ export default function Search() {
                     Back
                   </Button>
                 )}
-                <Button
-                  variant="contained"
-                  onClick={() => handleFormAction(activeStep)}
-                  sx={{ mt: 3, ml: 1 }}
-                >
-                  {activeStep === steps.length - 1 ? "Stake" : "Search"}
-                </Button>
+
+                {activeStep === steps.length - 1 ? null : (
+                  <Button
+                    variant="contained"
+                    onClick={() => handleFormAction(activeStep)}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {activeStep === steps.length - 1 ? "Stake" : "Search"}
+                  </Button>
+                )}
               </Box>
             </>
           )}
