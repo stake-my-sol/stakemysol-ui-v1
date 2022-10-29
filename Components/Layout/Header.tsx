@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from "react";
+import Image from "next/image";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -46,14 +47,24 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             LOGO
-          </Typography>
+          </Typography> */}
+          <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
+            <IconButton>
+              <Image
+                src="/SMS_Logo-Round.png"
+                alt="logo"
+                width={50}
+                height={50}
+              />
+            </IconButton>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
