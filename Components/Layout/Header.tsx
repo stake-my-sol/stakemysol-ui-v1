@@ -56,14 +56,16 @@ function ResponsiveAppBar() {
             LOGO
           </Typography> */}
           <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
-            <IconButton>
-              <Image
-                src="/SMS_Logo-Round.png"
-                alt="logo"
-                width={50}
-                height={50}
-              />
-            </IconButton>
+            <Link href="/" passHref>
+              <IconButton>
+                <Image
+                  src="/SMS_Logo-Round.png"
+                  alt="logo"
+                  width={50}
+                  height={50}
+                />
+              </IconButton>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
