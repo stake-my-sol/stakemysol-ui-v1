@@ -16,7 +16,7 @@ import {
 import { blue, red } from "@mui/material/colors";
 import { IValidator } from "../@types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Image from "next/future/image";
+import Image from "next/image";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;

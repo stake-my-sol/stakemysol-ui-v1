@@ -13,7 +13,7 @@ import { NetworkContext } from "../../Contexts/NetworkProvider";
 
 import { IValidator, ISelectedValidatorsContext } from "../../@types";
 import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
-import Image from "next/future/image";
+import Image from "next/image";
 
 interface SingleValidatorResultProps {
   validator: IValidator;
