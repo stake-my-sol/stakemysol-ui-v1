@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
             <Link href="/" passHref>
               <IconButton>
                 <Image
-                  src="/SMS_Logo-Round.png"
+                  src="/sms_logo_round.png"
                   alt="logo"
                   width={50}
                   height={50}
