@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import WalletConnection from "../WalletConnection";
-// import NetworksMenu from "./NetworksMenu";
 
 const pages = [
   { label: "Games", to: "/games" },
@@ -51,7 +50,6 @@ function ResponsiveAppBar() {
         justifyContent: "center",
         alignItems: "center",
         height: "5rem",
-        mt: 2,
         minWidth: "30rem",
         width: "80%",
         maxWidth: "60rem",
@@ -85,7 +83,7 @@ function ResponsiveAppBar() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon color="primary" />
             </IconButton>
             <Menu
               id="menu-appbar"

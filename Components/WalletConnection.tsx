@@ -12,7 +12,9 @@ function WalletConnection() {
   return publicKey ? (
     <WalletDisconnectButton className={styles.customBtn}>
       <Typography variant="h6" sx={{ color: "black" }}>
-        PSt4...gtR1
+        {publicKey.toBase58().slice(0, 3) +
+          "..." +
+          publicKey.toBase58().slice(-3)}
       </Typography>
     </WalletDisconnectButton>
   ) : (
