@@ -15,9 +15,10 @@ import WalletConnection from "../WalletConnection";
 // import NetworksMenu from "./NetworksMenu";
 
 const pages = [
-  { label: "Validators", to: "/validators" },
-  { label: "Search", to: "/search" },
+  { label: "Games", to: "/games" },
   { label: "Your Stakes", to: "/stakes" },
+  { label: "Search", to: "/search" },
+  { label: "Validators", to: "/validators" },
 ];
 
 const navLinkBasicStyles: React.CSSProperties = {
@@ -44,25 +45,32 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "5rem",
+        mt: 2,
+        minWidth: "30rem",
+        width: "80%",
+        maxWidth: "60rem",
+        mx: "auto",
+        borderRadius: "50px",
+        backgroundColor: "white",
+      }}
+      position="static"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            LOGO
-          </Typography> */}
           <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
             <Link href="/" passHref>
               <IconButton>
                 <Image
                   src="/SMS_Logo-Round.png"
                   alt="logo"
-                  width={50}
-                  height={50}
+                  width={65}
+                  height={65}
                 />
               </IconButton>
             </Link>
@@ -120,10 +128,16 @@ function ResponsiveAppBar() {
           >
             LOGO
           </Typography> */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: { sx: "none", md: "center" },
+            }}
+          >
             {pages.map((page) => (
               <Link
-                // style={{ ...navLinkBasicStyles, ...navLinkHeaderStyles }}
+                style={{ margin: "0 0.8rem" }}
                 href={page.to}
                 key={page.to}
                 passHref
@@ -131,7 +145,12 @@ function ResponsiveAppBar() {
                 <Button
                   key={page.label}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    display: "block",
+                    fontSize: "1.2rem",
+                  }}
                 >
                   {page.label}
                 </Button>
@@ -142,10 +161,6 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <WalletConnection />
           </Box>
-
-          {/* <Box sx={{ flexGrow: 0, marginLeft: "1rem" }}>
-            <NetworksMenu />
-          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

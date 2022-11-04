@@ -1,7 +1,13 @@
 .customBtn {
   padding: 24px;
   font-size: 0.8rem;
-  background-color: #512da8;
+  background-color: transparent;
+  border: 3px solid #000;
+  border-radius: 50px;
+}
+
+.customBtn:not([disabled]):hover {
+  background-color: rgb(231, 231, 231);
 }
 
 @media screen and (min-width: 425px) {
