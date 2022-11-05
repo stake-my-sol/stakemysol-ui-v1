@@ -7,7 +7,6 @@ function Footer() {
       sx={{
         display: "flex",
         padding: 4,
-        backgroundColor: "#000",
         justifyContent: "space-around",
         alignItems: "center",
       }}
@@ -20,7 +19,7 @@ function Footer() {
           <Image
             src="/logo_solana.svg"
             alt="Solana logo"
-            width="150"
+            width="269"
             height="40"
           />
         </Box>
@@ -28,7 +27,7 @@ function Footer() {
           <Image
             src="/validators_logo.png"
             alt="validators.app logo"
-            width="150"
+            width="194"
             height="40"
           />
         </Box>
@@ -36,7 +35,7 @@ function Footer() {
           <Image
             src="/stakeview_logo.png"
             alt="validators.app logo"
-            width="150"
+            width="145"
             height="40"
           />
         </Box>

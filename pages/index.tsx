@@ -36,9 +36,11 @@ const HomePage: NextPage = () => {
 
               <Box
                 sx={{
-                  width: "80%",
+                  width: "30rem",
+                  height: "30rem",
                   backgroundColor: "white",
                   textAlign: "center",
+                  position: "absolute",
                   // p: 2,
                   mt: 6,
                   mb: 2,
@@ -49,8 +51,7 @@ const HomePage: NextPage = () => {
                 <Image
                   src="/sms_lunar_system.gif"
                   alt="SMS lunar system"
-                  width={500}
-                  height={500}
+                  fill
                 />
               </Box>
             </Grid>
