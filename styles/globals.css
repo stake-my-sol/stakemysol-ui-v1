@@ -25,7 +25,7 @@ body,
 /* *: current solution for overriding prefixed paddingRight in select Component is this
    TODO: replace it with a better alternative if there is one.
 */
-#networks-menu-select {
+/* #networks-menu-select {
   padding-right: 0;
 }
 
@@ -39,4 +39,4 @@ body,
 
 #sort-direction-select {
   padding-right: 0;
-}
+} */

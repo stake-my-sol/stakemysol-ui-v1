@@ -8,7 +8,7 @@ interface SortDirectionProps {
   setSortDir: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function SortDirection({ sortDir, setSortDir }: SortDirectionProps) {
+function SortDirectionSelect({ sortDir, setSortDir }: SortDirectionProps) {
   const handleChange = (event: SelectChangeEvent) => {
     const selectedDirection = parseInt(event.target.value, 10);
     setSortDir(selectedDirection);
@@ -31,16 +31,13 @@ function SortDirection({ sortDir, setSortDir }: SortDirectionProps) {
         <Select
           id="sort-direction-select"
           sx={{
-            textAlign: "center",
             "& .MuiFilledInput-input": {
-              paddingX: 0,
               paddingY: 1.5,
             },
           }}
           value={sortDir.toString()}
           onChange={handleChange}
           variant="filled"
-          IconComponent="span"
         >
           {sortDirMenuOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -53,4 +50,4 @@ function SortDirection({ sortDir, setSortDir }: SortDirectionProps) {
   );
 }
 
-export default SortDirection;
+export default SortDirectionSelect;

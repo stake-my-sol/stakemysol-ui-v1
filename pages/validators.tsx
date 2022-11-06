@@ -38,42 +38,6 @@ function ValidatorsPage() {
     setSelectedValidator(null);
   };
 
-  // useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const getValidators = async () => {
-  //     try {
-  //       const reqNetwork =
-  //         network === WalletAdapterNetwork.Mainnet ? "mainnet" : network;
-
-  //       const reqBody = {
-  //         network: reqNetwork,
-  //         page,
-  //         perPage,
-  //         sort: {
-  //           sortBy,
-  //           direction: sortDir,
-  //         },
-  //       };
-  //       const { data } = await stakeMySolAxios.post("/data/validators", {
-  //         signal: abortController.signal,
-  //         data: reqBody,
-  //       });
-
-  //       setValidators(data);
-  //     } catch (error: any) {
-  //       if (error.name === "AbortError") {
-  //         // handle error thrown by aborting request
-  //       }
-  //     }
-  //   };
-
-  //   getValidators();
-
-  //   return () => {
-  //     abortController.abort();
-  //   };
-  // }, [network, page, perPage, sortBy, sortDir]);
-
   const validatorsFetcher = async (...args: any[]) => {
     try {
       const reqNetwork =

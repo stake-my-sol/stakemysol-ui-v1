@@ -17,16 +17,23 @@ const HomePage: NextPage = () => {
       <Box>
         <Grid container spacing={2}>
           <Grid container item xs={6}>
-            <Grid item xs={12}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Box
                 sx={{
                   width: "80%",
                   backgroundColor: "white",
                   textAlign: "center",
                   p: 2,
-                  mt: 6,
-                  mb: 2,
-                  ml: 15,
+                  my: 2,
                   borderRadius: "50px",
                   fontSize: "2rem",
                 }}
@@ -36,22 +43,17 @@ const HomePage: NextPage = () => {
 
               <Box
                 sx={{
-                  width: "30rem",
-                  height: "30rem",
                   backgroundColor: "white",
                   textAlign: "center",
-                  position: "absolute",
-                  // p: 2,
-                  mt: 6,
-                  mb: 2,
-                  ml: 15,
+                  my: 2,
                   borderRadius: "50px",
                 }}
               >
                 <Image
                   src="/sms_lunar_system.gif"
                   alt="SMS lunar system"
-                  fill
+                  width={450}
+                  height={450}
                 />
               </Box>
             </Grid>

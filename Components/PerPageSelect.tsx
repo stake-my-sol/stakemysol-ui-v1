@@ -8,7 +8,7 @@ interface PerPageProps {
   setPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function PerPage({ perPage, setPerPage }: PerPageProps) {
+function PerPageSelect({ perPage, setPerPage }: PerPageProps) {
   const handleChange = (event: SelectChangeEvent) => {
     const selectedPerPage = parseInt(event.target.value, 10);
     setPerPage(selectedPerPage);
@@ -51,16 +51,13 @@ function PerPage({ perPage, setPerPage }: PerPageProps) {
         <Select
           id="sort-validators-by-select"
           sx={{
-            textAlign: "center",
             "& .MuiFilledInput-input": {
-              paddingX: 0,
               paddingY: 1.5,
             },
           }}
           value={perPage.toString()}
           onChange={handleChange}
           variant="filled"
-          IconComponent="span"
         >
           {perPageMenuOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -73,4 +70,4 @@ function PerPage({ perPage, setPerPage }: PerPageProps) {
   );
 }
 
-export default PerPage;
+export default PerPageSelect;

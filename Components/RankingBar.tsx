@@ -1,7 +1,7 @@
 import { Stack, Divider } from "@mui/material";
 import SortBySelect from "./SortBySelect";
-import PerPage from "./PerPage";
-import SortDirection from "./SortDirection";
+import PerPageSelect from "./PerPageSelect";
+import SortDirectionSelect from "./SortDirectionSelect";
 
 interface RankingBarProps {
   sortBy: string;
@@ -30,9 +30,9 @@ function RankingBar({
     >
       <SortBySelect sortBy={sortBy} setSortBy={setSortBy} />
 
-      <PerPage perPage={perPage} setPerPage={setPerPage} />
+      <PerPageSelect perPage={perPage} setPerPage={setPerPage} />
 
-      <SortDirection sortDir={sortDir} setSortDir={setSortDir} />
+      <SortDirectionSelect sortDir={sortDir} setSortDir={setSortDir} />
     </Stack>
   );
 }

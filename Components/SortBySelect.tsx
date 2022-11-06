@@ -46,21 +46,18 @@ function SortBySelect({ sortBy, setSortBy }: SortBySelectProps) {
   ];
 
   return (
-    <Box sx={{ width: 130, backgroundColor: "white", textAlign: "center" }}>
+    <Box sx={{ width: 130, backgroundColor: "white" }}>
       <FormControl fullWidth>
         <Select
           id="sort-validators-by-select"
           sx={{
-            textAlign: "center",
             "& .MuiFilledInput-input": {
-              paddingX: 0,
               paddingY: 1.5,
             },
           }}
           value={sortBy}
           onChange={handleChange}
           variant="filled"
-          IconComponent="span"
         >
           {sortByMenuOptions.map((option) => (
             <MenuItem key={option.value} value={option.value}>
