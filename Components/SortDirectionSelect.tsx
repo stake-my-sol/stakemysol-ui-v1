@@ -1,6 +1,5 @@
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import { Typography, Box, MenuItem } from "@mui/material";
+
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface SortDirectionProps {
@@ -26,26 +25,34 @@ function SortDirectionSelect({ sortDir, setSortDir }: SortDirectionProps) {
   ];
 
   return (
-    <Box sx={{ width: 100, backgroundColor: "white", textAlign: "center" }}>
-      <FormControl fullWidth>
-        <Select
-          id="sort-direction-select"
-          sx={{
-            "& .MuiFilledInput-input": {
-              paddingY: 1.5,
-            },
-          }}
-          value={sortDir.toString()}
-          onChange={handleChange}
-          variant="filled"
-        >
-          {sortDirMenuOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <Box
+      sx={{
+        backgroundColor: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Typography sx={{ pr: 1, fontSize: "0.8rem" }}>Direction</Typography>
+
+      <Select
+        id="sort-direction-select"
+        sx={{
+          borderRadius: "50px",
+          fontSize: "0.8rem",
+          backgroundColor: "#e3e3e3",
+        }}
+        value={sortDir.toString()}
+        onChange={handleChange}
+        variant="outlined"
+        autoWidth
+      >
+        {sortDirMenuOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </Box>
   );
 }

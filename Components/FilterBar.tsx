@@ -2,6 +2,7 @@ import { Stack, Divider } from "@mui/material";
 import SortBySelect from "./SortBySelect";
 import PerPageSelect from "./PerPageSelect";
 import SortDirectionSelect from "./SortDirectionSelect";
+import SearchByName from "./SearchByName";
 
 interface RankingBarProps {
   sortBy: string;
@@ -22,7 +23,7 @@ function RankingBar({
 }: RankingBarProps) {
   return (
     <Stack
-      sx={{ padding: "2rem 0" }}
+      sx={{ p: 2 }}
       spacing={1}
       direction="row"
       justifyContent="center"
@@ -33,6 +34,8 @@ function RankingBar({
       <PerPageSelect perPage={perPage} setPerPage={setPerPage} />
 
       <SortDirectionSelect sortDir={sortDir} setSortDir={setSortDir} />
+
+      <SearchByName />
     </Stack>
   );
 }

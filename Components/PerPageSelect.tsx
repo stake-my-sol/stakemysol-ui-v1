@@ -1,6 +1,4 @@
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import { Typography, Box, MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface PerPageProps {
@@ -46,26 +44,33 @@ function PerPageSelect({ perPage, setPerPage }: PerPageProps) {
   ];
 
   return (
-    <Box sx={{ width: 70, backgroundColor: "white", textAlign: "center" }}>
-      <FormControl fullWidth>
-        <Select
-          id="sort-validators-by-select"
-          sx={{
-            "& .MuiFilledInput-input": {
-              paddingY: 1.5,
-            },
-          }}
-          value={perPage.toString()}
-          onChange={handleChange}
-          variant="filled"
-        >
-          {perPageMenuOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <Box
+      sx={{
+        backgroundColor: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Typography sx={{ pr: 1, fontSize: "0.8rem" }}>Per page</Typography>
+      <Select
+        id="sort-validators-by-select"
+        sx={{
+          borderRadius: "50px",
+          fontSize: "0.8rem",
+          backgroundColor: "#e3e3e3",
+        }}
+        value={perPage.toString()}
+        onChange={handleChange}
+        variant="outlined"
+        autoWidth
+      >
+        {perPageMenuOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </Box>
   );
 }

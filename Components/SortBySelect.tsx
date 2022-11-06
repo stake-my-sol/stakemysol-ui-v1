@@ -1,6 +1,4 @@
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import { Typography, Box, MenuItem, FormControl } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface SortBySelectProps {
@@ -46,26 +44,33 @@ function SortBySelect({ sortBy, setSortBy }: SortBySelectProps) {
   ];
 
   return (
-    <Box sx={{ width: 130, backgroundColor: "white" }}>
-      <FormControl fullWidth>
-        <Select
-          id="sort-validators-by-select"
-          sx={{
-            "& .MuiFilledInput-input": {
-              paddingY: 1.5,
-            },
-          }}
-          value={sortBy}
-          onChange={handleChange}
-          variant="filled"
-        >
-          {sortByMenuOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <Box
+      sx={{
+        backgroundColor: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Typography sx={{ pr: 1, fontSize: "0.8rem" }}>Sort by</Typography>
+      <Select
+        id="sort-validators-by-select"
+        sx={{
+          borderRadius: "50px",
+          fontSize: "0.8rem",
+          backgroundColor: "#e3e3e3",
+        }}
+        value={sortBy}
+        onChange={handleChange}
+        variant="outlined"
+        autoWidth
+      >
+        {sortByMenuOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </Box>
   );
 }

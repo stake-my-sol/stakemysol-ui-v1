@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import Head from "next/head";
 import _ from "lodash";
-import { Box, Container, Divider, Modal } from "@mui/material";
+import { Box, Container, Divider, Modal, Paper } from "@mui/material";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import stakeMySolAxios from "../axios-instances";
 import PaginationCmp from "../Components/ValidatorsResultPagination";
-import RankingBar from "../Components/RankingBar";
+import FilterBar from "../Components/FilterBar";
 import ValidatorsResult from "../Components/ValidatorsResult";
 import SelectedValidatorModal from "../Components/SelectedValidatorModal";
 import { NetworkContext } from "../Contexts/NetworkProvider";
@@ -95,29 +95,39 @@ function ValidatorsPage() {
         <title>Validators Page</title>
       </Head>
 
-      <Container maxWidth="sm">
-        {modal || null}
-        <Box>
-          <RankingBar
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            sortDir={sortDir}
-            setSortDir={setSortDir}
+      <Paper
+        sx={{
+          mt: 4,
+          minWidth: "15rem",
+          width: "75%",
+          maxWidth: "45rem",
+          mx: "auto",
+        }}
+      >
+        <Container>
+          {modal || null}
+          <Box>
+            <FilterBar
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortDir={sortDir}
+              setSortDir={setSortDir}
+              perPage={perPage}
+              setPerPage={setPerPage}
+            />
+          </Box>
+          <Divider sx={{ mt: "1rem", mb: "1rem" }} />
+          <ValidatorsResult
+            handleOpenShowMore={handleOpenShowMore}
+            validators={validators}
             perPage={perPage}
-            setPerPage={setPerPage}
           />
-        </Box>
-        <Divider sx={{ mt: "1rem", mb: "1rem" }} />
-        <ValidatorsResult
-          handleOpenShowMore={handleOpenShowMore}
-          validators={validators}
-          perPage={perPage}
-        />
-        <Divider sx={{ mt: "1rem" }} />
-        <Box sx={{ mt: "1rem", mb: "1rem" }}>
-          <PaginationCmp pagesNum={pagesNum} page={page} setPage={setPage} />
-        </Box>
-      </Container>
+          <Divider sx={{ mt: "1rem" }} />
+          <Box sx={{ mt: "1rem", mb: "1rem" }}>
+            <PaginationCmp pagesNum={pagesNum} page={page} setPage={setPage} />
+          </Box>
+        </Container>
+      </Paper>
     </>
   );
 }
