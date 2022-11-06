@@ -14,6 +14,7 @@ import Layout from "../Components/Layout/Layout";
 import ErrorBoundary from "../Components/ErrorBoundary";
 import "../styles/globals.css";
 import { SWRConfig } from "swr";
+import { Analytics } from "@vercel/analytics/react";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -42,6 +43,7 @@ export default function MyApp(props: MyAppProps) {
                       <CssBaseline />
                       <Layout>
                         <Component {...pageProps} />
+                        <Analytics />
                       </Layout>
                     </ThemeProvider>
                   </SelectedValidatorsProvider>
