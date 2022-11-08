@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { findIndex } from "lodash";
+import { findIndex, isNil } from "lodash";
 import {
   Paper,
+  Box,
   Grid,
   Divider,
   Avatar,
@@ -14,6 +15,8 @@ import { NetworkContext } from "../../Contexts/NetworkProvider";
 import { IValidator, ISelectedValidatorsContext } from "../../@types";
 import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
 import Image from "next/image";
+import smartNumber from "../../utils/smartNumber";
+import SingleValidatorResultActionButton from "./SingleValidatorResultActionButton";
 
 interface SingleValidatorResultProps {
   validator: IValidator;
@@ -31,13 +34,13 @@ function SingleValidatorResult({
   const { network } = useContext(NetworkContext)!;
 
   let actionButton = (
-    <Button
+    <SingleValidatorResultActionButton
       variant="contained"
       color="secondary"
       onClick={() => addValidator(validator)}
     >
       Add
-    </Button>
+    </SingleValidatorResultActionButton>
   );
 
   if (
@@ -47,21 +50,27 @@ function SingleValidatorResult({
     ) !== -1
   ) {
     actionButton = (
-      <Button
+      <SingleValidatorResultActionButton
         variant="contained"
         color="error"
         onClick={() => removeValidator(validator)}
       >
         Remove
-      </Button>
+      </SingleValidatorResultActionButton>
     );
   }
   return (
-    <Paper sx={{ backgroundColor: "grey.50", flexGrow: 1, padding: 1 }}>
-      <Grid direction="column" container>
+    <Paper
+      sx={{
+        backgroundColor: "grey.50",
+        display: "flex",
+        flexGrow: 1,
+        padding: 1,
+      }}
+    >
+      <Box>
         <Grid
           container
-          item
           xs
           direction="row"
           justifyContent="flex-start"
@@ -73,68 +82,73 @@ function SingleValidatorResult({
               src={validator.avatar_url!}
               sx={{ width: 50, height: 50 }}
             >
-              <Image alt="validator avatar" src={validator.avatar_url!} fill />
+              <Image
+                alt="validator avatar"
+                src={
+                  isNil(validator.avatar_url)
+                    ? "/default_validator_pic.svg"
+                    : validator.avatar_url
+                }
+                fill
+              />
             </Avatar>
           </Grid>
           <Grid
             container
             item
             xs={10}
-            direction="column"
-            justifyContent="center"
+            direction="row"
+            justifyContent="space-between"
           >
-            <Grid item xs>
-              <Typography textAlign="center">{validator.name}</Typography>
-              <Divider />
+            <Grid item xs={6}>
+              <Typography>{validator.name}</Typography>
             </Grid>
-            <Grid container item xs>
-              <Grid item xs={5}>
-                <Typography>
-                  Apy: {(validator.apy! * 100).toFixed(2)}%
-                </Typography>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography>
-                  Active Stake:{" "}
-                  {(validator.active_stake! / 1000000000).toFixed(2)} SOL
-                </Typography>
-              </Grid>
+            <Grid item xs={6}>
+              <Typography>Apy: {(validator.apy! * 100).toFixed(2)}%</Typography>
             </Grid>
-            <Grid container item xs>
-              <Grid item xs={5}>
-                <Typography>
-                  Commission:
-                  {validator.commission}%
-                </Typography>
-              </Grid>
-              <Grid item xs={7}>
-                <Typography>
-                  Total Score:
-                  {validator.total_score}
-                </Typography>
-              </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                Active Stake:{" "}
+                {isNil(validator.active_stake)
+                  ? "Not Provided"
+                  : `${smartNumber(validator.active_stake, 1000000000)} SOL`}
+              </Typography>
+            </Grid>
+
+            <Grid item xs={6}>
+              <Typography>
+                Commission:
+                {validator.commission}%
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                Total Score:
+                {validator.total_score}
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
+      </Box>
+      <Box>
         <Grid
           container
-          item
-          direction="row"
+          direction="column"
           justifyContent="space-between"
           alignItems="center"
         >
           <Grid item>{actionButton}</Grid>
           <Grid item>
-            <Button
+            <SingleValidatorResultActionButton
               variant="contained"
               color="secondary"
               onClick={() => handleOpenShowMore(validator)}
             >
               More
-            </Button>
+            </SingleValidatorResultActionButton>
           </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </Paper>
   );
 }
