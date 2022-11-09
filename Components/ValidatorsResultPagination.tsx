@@ -14,8 +14,15 @@ function PaginationCmp({ pagesNum, page, setPage }: PaginationProps) {
   };
 
   return (
-    <Stack direction="column" alignItems="center" spacing={2}>
-      <Pagination count={pagesNum} page={page} onChange={handleChange} />
+    <Stack direction="column" alignItems="center" sx={{ py: 2 }}>
+      <Pagination
+        count={pagesNum}
+        page={page}
+        onChange={handleChange}
+        color="primary"
+        variant="outlined"
+        shape="rounded"
+      />
     </Stack>
   );
 }

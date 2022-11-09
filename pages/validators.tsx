@@ -123,7 +123,7 @@ function ValidatorsPage() {
             perPage={perPage}
           />
           <Divider sx={{ mt: "1rem" }} />
-          <Box sx={{ mt: "1rem", mb: "1rem" }}>
+          <Box>
             <PaginationCmp pagesNum={pagesNum} page={page} setPage={setPage} />
           </Box>
         </Container>
