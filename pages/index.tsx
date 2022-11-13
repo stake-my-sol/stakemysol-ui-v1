@@ -4,6 +4,7 @@ import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
 import AtmMachineSvg from "../public/handy_atm_machine.svg";
+import SmsLunarGif from "../Components/SmsLunarGif";
 
 const HomePage: NextPage = () => {
   return (
@@ -44,17 +45,13 @@ const HomePage: NextPage = () => {
               <Box
                 sx={{
                   backgroundColor: "white",
-                  textAlign: "center",
+                  width: "25rem",
+                  height: "25rem",
                   my: 2,
                   borderRadius: "50px",
                 }}
               >
-                <Image
-                  src="/sms_lunar_system.gif"
-                  alt="SMS lunar system"
-                  width={450}
-                  height={450}
-                />
+                <SmsLunarGif />
               </Box>
             </Grid>
           </Grid>
