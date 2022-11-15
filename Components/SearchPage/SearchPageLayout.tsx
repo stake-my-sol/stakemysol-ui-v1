@@ -6,9 +6,11 @@ import {
   SetStateAction,
   useMemo,
 } from "react";
+
+import { useRouter } from "next/router";
 import _ from "lodash";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import stakeMySolAxios from "../axios-instances";
+import stakeMySolAxios from "../../axios-instances";
 import Head from "next/head";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -18,27 +20,20 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import SearchForm from "../Components/SearchPage/SearchForm/SearchForm";
-import ValidatorsSelection from "../Components/SearchPage/DelegationForm/DelegationForm";
-import { NetworkContext } from "../Contexts/NetworkProvider";
-import { SearchContext } from "../Contexts/SearchContextProvider";
+import SearchForm from "./SearchForm/SearchForm";
+import ValidatorsSelection from "./DelegationForm/DelegationForm";
+import { NetworkContext } from "../../Contexts/NetworkProvider";
+import { SearchContext } from "../../Contexts/SearchContextProvider";
 // import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
 
 const steps = ["Search", "Stake"];
 
-const getStepContent = (step: number) => {
-  switch (step) {
-    case 0:
-      return <SearchForm />;
-    case 1:
-      return <ValidatorsSelection />;
-
-    default:
-      throw new Error("Unknown step");
-  }
+type props = {
+  children: React.ReactNode | React.ReactNode[];
 };
 
-export default function Search() {
+export default function SearchPageLayout({ children }: props) {
+  const router = useRouter();
   const { network } = useContext(NetworkContext)!;
   const {
     activeStep,
@@ -182,9 +177,11 @@ export default function Search() {
 
   const handleFormAction = async (activeStep: number) => {
     switch (activeStep) {
-      case 0:
+      case 0: {
         await searchHandler();
+        router.push("/search/results");
         break;
+      }
       case 1:
         // await stakeHandler();
         break;
@@ -197,6 +194,7 @@ export default function Search() {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+    router.push("/search");
   };
 
   return (
@@ -244,7 +242,7 @@ export default function Search() {
             </>
           ) : (
             <>
-              {getStepContent(activeStep)}
+              {children}
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 {activeStep !== 0 && (
                   <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
