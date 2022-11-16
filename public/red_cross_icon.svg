@@ -1,0 +1,14 @@
+<svg id="Component_7_1" data-name="Component 7 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="62" viewBox="0 0 62 62">
+  <defs>
+    <clipPath id="clip-path">
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="31" cy="31" r="31" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_1" data-name="Mask Group 1" clip-path="url(#clip-path)">
+    <g id="icons8-cancel" transform="translate(0 0)">
+      <path id="Path_3" data-name="Path 3" d="M68.2,37.2a31,31,0,1,1-31-31A31,31,0,0,1,68.2,37.2Z" transform="translate(-6.2 -6.2)" fill="#f44336"/>
+      <path id="Path_4" data-name="Path 4" d="M45.967,24.05l4.383,4.383L28.433,50.35,24.05,45.967Z" transform="translate(-6.2 -6.2)" fill="#fff"/>
+      <path id="Path_5" data-name="Path 5" d="M50.35,45.967,45.967,50.35,24.05,28.433l4.383-4.383Z" transform="translate(-6.2 -6.2)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

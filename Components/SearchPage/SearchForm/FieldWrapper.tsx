@@ -1,5 +1,6 @@
 import { Box, Switch } from "@mui/material";
 import { ReactNode } from "react";
+import CustomSwitch from "../../CustomSwitch";
 
 interface FieldWrapperProps {
   children: ReactNode | ReactNode[];
@@ -11,23 +12,24 @@ function FieldWrapper({ children, checked, toggleChecked }: FieldWrapperProps) {
   return (
     <Box
       sx={{
-        position: "relative",
-        border: "1px solid black",
-        borderRadius: "10px",
-        p: 2,
-        pt: 4,
-        pd: 0,
-        my: 1,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        my: 2,
       }}
     >
-      <>
-        <Switch
-          sx={{ position: "absolute", top: 1, right: 1 }}
-          checked={checked}
-          onChange={toggleChecked}
-        />
-        <>{children}</>
-      </>
+      <Box
+        sx={{
+          flexGrow: 1,
+          border: "1px solid black",
+          borderRadius: "10px",
+          p: 2,
+          backgroundColor: "grey.200",
+        }}
+      >
+        {children}
+      </Box>
+      <CustomSwitch checked={checked} toggleChecked={toggleChecked} />
     </Box>
   );
 }

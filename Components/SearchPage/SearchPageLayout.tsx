@@ -40,6 +40,7 @@ export default function SearchPageLayout({ children }: props) {
     activeStep,
     setActiveStep,
     advancedSearch,
+    toggleAdvancedSearch,
     validatorsCount,
     validatorsCountActive,
     selectedNames,
@@ -257,13 +258,30 @@ export default function SearchPageLayout({ children }: props) {
                   )}
 
                   {activeStep === 0 && (
-                    <Button
-                      variant="contained"
-                      onClick={() => handleFormAction(activeStep)}
-                      sx={{ mt: 3, ml: 1 }}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        flexGrow: 1,
+                      }}
                     >
-                      Search
-                    </Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={toggleAdvancedSearch}
+                        sx={{ mt: 3, ml: 1 }}
+                      >
+                        {advancedSearch ? "Basic Search" : "Advanced Search"}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handleFormAction(activeStep)}
+                        sx={{ mt: 3, ml: 1 }}
+                      >
+                        Search
+                      </Button>
+                    </Box>
                   )}
                 </Box>
               )}

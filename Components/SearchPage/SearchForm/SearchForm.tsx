@@ -36,7 +36,6 @@ function SearchPage() {
 
   const {
     advancedSearch,
-    toggleAdvancedSearch,
     validatorsCount,
     setValidatorsCount,
     validatorsCountActive,
@@ -175,7 +174,7 @@ function SearchPage() {
   return (
     <Container maxWidth="sm">
       <form>
-        <Typography textAlign={"center"} sx={{ py: 1 }}>
+        <Typography textAlign={"center"} sx={{ py: 1, fontSize: "1.2rem" }}>
           How many stake accounts?
         </Typography>
         <Box
@@ -433,10 +432,6 @@ function SearchPage() {
             </FieldWrapper>
           </>
         ) : null}
-
-        <Button onClick={toggleAdvancedSearch}>
-          {advancedSearch ? "Go To Basic Search" : "Go To Advanced Search"}
-        </Button>
       </form>
     </Container>
   );
