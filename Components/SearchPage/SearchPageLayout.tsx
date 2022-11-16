@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useMemo,
 } from "react";
-
 import { useRouter } from "next/router";
 import _ from "lodash";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -25,6 +24,7 @@ import ValidatorsSelection from "./DelegationForm/DelegationForm";
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 import { SearchContext } from "../../Contexts/SearchContextProvider";
 // import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
+import Progress from "../Progress";
 
 const steps = ["Search", "Stake"];
 
@@ -33,6 +33,7 @@ type props = {
 };
 
 export default function SearchPageLayout({ children }: props) {
+  const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
   const { network } = useContext(NetworkContext)!;
   const {
@@ -68,6 +69,7 @@ export default function SearchPageLayout({ children }: props) {
 
   const searchHandler = async () => {
     // e.preventDefault();
+    setIsSearching(true);
     const abortController = new AbortController();
     const reqNetwork =
       network === WalletAdapterNetwork.Mainnet ? "mainnet" : "testnet";
@@ -173,6 +175,7 @@ export default function SearchPageLayout({ children }: props) {
     );
 
     setFoundValidators(data);
+    setIsSearching(false);
   };
 
   const handleFormAction = async (activeStep: number) => {
@@ -200,7 +203,7 @@ export default function SearchPageLayout({ children }: props) {
   return (
     <>
       <Head>
-        <title>Search Page</title>
+        <title>{activeStep === 0 ? "Search" : "Found Validators"}</title>
       </Head>
 
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
@@ -243,23 +246,27 @@ export default function SearchPageLayout({ children }: props) {
           ) : (
             <>
               {children}
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    Back
-                  </Button>
-                )}
+              {isSearching ? (
+                <Progress />
+              ) : (
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  {activeStep === 1 && (
+                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
+                    </Button>
+                  )}
 
-                {activeStep === steps.length - 1 ? null : (
-                  <Button
-                    variant="contained"
-                    onClick={() => handleFormAction(activeStep)}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? "Stake" : "Search"}
-                  </Button>
-                )}
-              </Box>
+                  {activeStep === 0 && (
+                    <Button
+                      variant="contained"
+                      onClick={() => handleFormAction(activeStep)}
+                      sx={{ mt: 3, ml: 1 }}
+                    >
+                      Search
+                    </Button>
+                  )}
+                </Box>
+              )}
             </>
           )}
         </Paper>
