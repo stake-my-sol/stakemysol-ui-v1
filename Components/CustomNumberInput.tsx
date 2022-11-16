@@ -80,7 +80,14 @@ export default function CustomNumberInput({
         },
       }}
       variant="outlined"
-      sx={{ width: 80 }}
+      sx={{
+        width: 80,
+        "& .MuiInputBase-input": {
+          py: 1,
+          borderRadius: "5px",
+          border: "1px solid black",
+        },
+      }}
     />
   );
 }

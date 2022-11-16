@@ -175,12 +175,20 @@ function SearchPage() {
   return (
     <Container maxWidth="sm">
       <form>
-        <Typography>Count: </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography textAlign={"center"} sx={{ py: 1 }}>
+          How many stake accounts?
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Button
             variant="contained"
-            color="primary"
-            sx={{ mx: 1, fontSize: 20 }}
+            color="error"
+            sx={{ mx: 1, fontSize: 20, textAlign: "center" }}
             onClick={() => {
               setValidatorsCount(validatorsCount - 1);
             }}
@@ -197,7 +205,7 @@ function SearchPage() {
           />
           <Button
             variant="contained"
-            color="primary"
+            color="success"
             sx={{ mx: 1, fontSize: 20 }}
             onClick={() => {
               setValidatorsCount(validatorsCount + 1);
