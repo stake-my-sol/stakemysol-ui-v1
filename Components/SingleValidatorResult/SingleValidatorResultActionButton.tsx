@@ -1,7 +1,10 @@
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import React from "react";
+import { motion } from "framer-motion";
 
-type Props = React.ComponentProps<typeof Button>;
+type Props = React.ComponentProps<typeof Button> &
+  React.ComponentProps<typeof Box> &
+  React.ComponentProps<typeof motion.button>;
 
 const SingleValidatorResultActionButton = (props: Props) => {
   return (

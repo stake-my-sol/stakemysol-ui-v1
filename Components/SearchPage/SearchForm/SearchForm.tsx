@@ -1,5 +1,6 @@
 import { useContext, useState, Dispatch, SetStateAction } from "react";
 import _ from "lodash";
+import { motion } from "framer-motion";
 import {
   Container,
   Button,
@@ -185,6 +186,8 @@ function SearchPage() {
           }}
         >
           <Button
+            component={motion.div}
+            whileTap={{ scale: 1.1 }}
             variant="contained"
             color="error"
             sx={{ mx: 1, fontSize: 20, textAlign: "center" }}
@@ -203,6 +206,8 @@ function SearchPage() {
             decimalScale={0}
           />
           <Button
+            component={motion.div}
+            whileTap={{ scale: 1.1 }}
             variant="contained"
             color="success"
             sx={{ mx: 1, fontSize: 20 }}

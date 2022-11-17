@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useMemo,
 } from "react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import _ from "lodash";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -266,6 +267,9 @@ export default function SearchPageLayout({ children }: props) {
                       }}
                     >
                       <Button
+                        component={motion.button}
+                        whileHover={{ scale: 1.1 }}
+                        initial={{ scale: 1 }}
                         variant="contained"
                         color="primary"
                         onClick={toggleAdvancedSearch}
@@ -274,6 +278,9 @@ export default function SearchPageLayout({ children }: props) {
                         {advancedSearch ? "Basic Search" : "Advanced Search"}
                       </Button>
                       <Button
+                        component={motion.button}
+                        whileHover={{ scale: 1.1 }}
+                        initial={{ scale: 1 }}
                         variant="contained"
                         color="success"
                         onClick={() => handleFormAction(activeStep)}

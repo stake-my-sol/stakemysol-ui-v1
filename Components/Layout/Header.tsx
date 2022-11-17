@@ -1,4 +1,5 @@
 import { useState, MouseEvent } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -61,7 +62,17 @@ function ResponsiveAppBar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
+          <Box
+            component={motion.div}
+            whileHover={{ scale: 1.1 }}
+            sx={{
+              mr: 2,
+              display: {
+                xs: "none",
+                md: "flex",
+              },
+            }}
+          >
             <Link href="/" passHref>
               <IconButton>
                 <Image

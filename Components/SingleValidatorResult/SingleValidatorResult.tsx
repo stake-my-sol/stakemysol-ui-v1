@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import { SelectedValidatorsContext } from "../../Contexts/SelectedValidatorsProvider";
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 
@@ -37,6 +38,8 @@ function SingleValidatorResult({
 
   let actionButton = (
     <SingleValidatorResultActionButton
+      component={motion.div}
+      whileTap={{ scale: 1.1 }}
       variant="contained"
       color="secondary"
       onClick={() => addValidator(validator)}
@@ -53,6 +56,8 @@ function SingleValidatorResult({
   ) {
     actionButton = (
       <SingleValidatorResultActionButton
+        component={motion.div}
+        whileTap={{ scale: 1.1 }}
         variant="contained"
         color="error"
         onClick={() => removeValidator(validator)}
