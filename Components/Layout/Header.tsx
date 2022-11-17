@@ -85,7 +85,11 @@ function ResponsiveAppBar() {
             </Link>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            component={motion.div}
+            whileTap={{ scale: 1.1 }}
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -152,6 +156,8 @@ function ResponsiveAppBar() {
                 passHref
               >
                 <Button
+                  component={motion.button}
+                  whileHover={{ scale: 1.05 }}
                   key={page.label}
                   onClick={handleCloseNavMenu}
                   sx={{
