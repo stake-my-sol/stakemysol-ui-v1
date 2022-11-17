@@ -31,6 +31,7 @@ import {
   IValidator,
 } from "../../../@types";
 import CustomSlider from "../../CustomSlider";
+import sortByVersionNumber from "../../../utils/sortByVersionNumber";
 
 function SearchPage() {
   const { network } = useContext(NetworkContext)!;
@@ -126,6 +127,9 @@ function SearchPage() {
         majorVersion = { ...version };
       }
     });
+
+    // sort software versions by version number
+    softwareVersions.sort(sortByVersionNumber);
 
     softwareVersionSelectOptions = softwareVersions.map((softwareVersion) => {
       if (softwareVersion._id === majorVersion._id) {
