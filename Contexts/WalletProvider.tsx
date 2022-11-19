@@ -40,7 +40,9 @@ function Wallet({ children }: WalletProps) {
   );
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider
+      endpoint={process.env.NEXT_PUBLIC_CUSTOM_MAINNET_ENDPOINT || endpoint}
+    >
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
