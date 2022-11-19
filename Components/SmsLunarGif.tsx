@@ -53,7 +53,7 @@ const SmsLunarGif = (props: Props) => {
           animate={{ rotateZ: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         >
-          <Image src="/game_control_full.png" fill alt="coins illustration" />
+          <Image src="/game_control_full.png" fill alt="games illustration" />
         </Box>
       </Box>
       <Box
@@ -107,7 +107,7 @@ const SmsLunarGif = (props: Props) => {
           animate={{ rotateZ: 360 }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         >
-          <Image src="/nft_full.png" fill alt="coins illustration" />
+          <Image src="/nft_full.png" fill alt="SmS nft illustration" />
         </Box>
       </Box>
     </Box>
