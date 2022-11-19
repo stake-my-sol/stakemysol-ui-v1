@@ -1,9 +1,14 @@
-import { Skeleton, Button, Box, Avatar, Divider } from "@mui/material";
+import { Skeleton, Button, Box, Avatar, Divider, Paper } from "@mui/material";
 
 function SingleValidatorResultSkeleton() {
   return (
-    <>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Paper sx={{ p: 1, border: "1px solid black" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -54,7 +59,7 @@ function SingleValidatorResultSkeleton() {
           </Skeleton>
         </Box>
       </Box>
-    </>
+    </Paper>
   );
 }
 

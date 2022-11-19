@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
@@ -15,9 +16,10 @@ import {
   Lockup,
 } from "@solana/web3.js";
 import { useState, useEffect } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, Paper, Container } from "@mui/material";
 import { STAKE_ACCOUNT_SEED_PREFIX } from "../Constants";
 import { IUIStakeAccount, IPotentialSMSPubkeys } from "../@types";
+import CurrentStakesTable from "../Components/StakesPage/CurrentStakesTable";
 
 const Stakes: NextPage = () => {
   const { connection } = useConnection();
@@ -111,7 +113,28 @@ const Stakes: NextPage = () => {
   }
 
   return (
-    <Box>{accounts === null ? <Box>Nothing to show!</Box> : accounts}</Box>
+    <>
+      <Head>
+        <title>Stakes</title>
+      </Head>
+
+      <Paper
+        sx={{
+          mt: 4,
+          minWidth: "15rem",
+          width: "75%",
+          maxWidth: "55rem",
+          mx: "auto",
+        }}
+      >
+        <Container>
+          <Box>
+            {/* {accounts === null ? <Box>Nothing to show!</Box> : accounts} */}
+            <CurrentStakesTable />
+          </Box>
+        </Container>
+      </Paper>
+    </>
   );
 };
 

@@ -21,11 +21,7 @@ function ValidatorsResult({
     renderedValidators = (
       <>
         {[...Array(perPage)].map(() => {
-          return (
-            <Paper sx={{ p: 1 }} key={skeletonKey++}>
-              <SingleValidatorResultSkeleton />
-            </Paper>
-          );
+          return <SingleValidatorResultSkeleton key={skeletonKey++} />;
         })}
       </>
     );

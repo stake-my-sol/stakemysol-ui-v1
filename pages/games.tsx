@@ -1,8 +1,12 @@
-import { Box } from "@mui/material";
+import { Box, Paper, Container } from "@mui/material";
 import { NextPage } from "next";
 
 const Games: NextPage = () => {
-  return <Box>Games</Box>;
+  return (
+    <Paper>
+      <Container>Games</Container>
+    </Paper>
+  );
 };
 
 export default Games;

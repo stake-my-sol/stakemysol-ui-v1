@@ -156,8 +156,6 @@ function ResponsiveAppBar() {
                 passHref
               >
                 <Button
-                  component={motion.button}
-                  whileHover={{ scale: 1.05 }}
                   key={page.label}
                   onClick={handleCloseNavMenu}
                   sx={{
@@ -165,6 +163,11 @@ function ResponsiveAppBar() {
                     color: "black",
                     display: "block",
                     fontSize: "1.2rem",
+                    "&:hover": {
+                      // background: "rgb(153,69,255)",
+                      background:
+                        "linear-gradient(90deg, rgba(153,69,255,1) 0%, rgba(20,241,149,1) 100%)",
+                    },
                   }}
                 >
                   {page.label}

@@ -14,7 +14,6 @@ import { SelectedValidatorsContext } from "../../Contexts/SelectedValidatorsProv
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 
 import { IValidator, ISelectedValidatorsContext } from "../../@types";
-import SingleValidatorResultSkeleton from "./SingleValidatorResultSkeleton";
 import Image from "next/image";
 import smartNumber from "../../utils/smartNumber";
 import SingleValidatorResultActionButton from "./SingleValidatorResultActionButton";
