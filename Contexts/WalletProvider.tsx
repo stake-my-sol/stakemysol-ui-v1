@@ -25,7 +25,16 @@ function Wallet({ children }: WalletProps) {
   const { network } = useContext(NetworkContext)!;
 
   // You can also provide a custom RPC endpoint.
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(
+    () =>
+      process.env.NEXT_PUBLIC_CUSTOM_MAINNET_ENDPOINT || clusterApiUrl(network),
+    [network],
+  );
+
+  console.log(
+    "🚀 ~ file: WalletProvider.tsx ~ line 33 ~ Wallet ~ endpoint",
+    endpoint,
+  );
 
   // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
   // Only the wallets you configure here will be compiled into your application, and only the dependencies
@@ -40,9 +49,7 @@ function Wallet({ children }: WalletProps) {
   );
 
   return (
-    <ConnectionProvider
-      endpoint={process.env.NEXT_PUBLIC_CUSTOM_MAINNET_ENDPOINT || endpoint}
-    >
+    <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
