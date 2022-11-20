@@ -127,12 +127,10 @@ const Stakes: NextPage = () => {
           mx: "auto",
         }}
       >
-        <Container>
-          <Box>
-            {/* {accounts === null ? <Box>Nothing to show!</Box> : accounts} */}
-            <CurrentStakesTable />
-          </Box>
-        </Container>
+        <Box>
+          {/* {accounts === null ? <Box>Nothing to show!</Box> : accounts} */}
+          <CurrentStakesTable />
+        </Box>
       </Paper>
     </>
   );

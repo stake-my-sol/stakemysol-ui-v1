@@ -9,11 +9,10 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableSortLabel,
   Paper,
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
-import { visuallyHidden } from "@mui/utils";
+import { motion } from "framer-motion";
 
 interface Data {
   address: string;
@@ -79,37 +78,6 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   return 0;
 }
 
-type Order = "asc" | "desc";
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort<T>(
-  array: readonly T[],
-  comparator: (a: T, b: T) => number,
-) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Data;
@@ -170,45 +138,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface EnhancedTableProps {
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data,
-  ) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
+interface EnhancedTableProps {}
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, onRequestSort } = props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
   return (
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
-          <StyledTableCell
-            key={headCell.id}
-            align="left"
-            padding="normal"
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+          <StyledTableCell key={headCell.id} align="center" padding="normal">
+            {headCell.label}
           </StyledTableCell>
         ))}
       </TableRow>
@@ -216,19 +154,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function EnhancedTable() {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("value");
-
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data,
-  ) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
-
+export default function CurrentStakesTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -238,42 +164,52 @@ export default function EnhancedTable() {
             aria-labelledby="tableTitle"
             size={"medium"}
           >
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
+            <EnhancedTableHead />
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy)).map(
-                (row, index) => {
-                  return (
-                    <StyledTableRow hover tabIndex={-1} key={row.address}>
-                      <StyledTableCell align="left">
-                        {row.address}
-                      </StyledTableCell>
-                      <StyledTableCell align="left">
-                        {row.value}
-                      </StyledTableCell>
-                      <StyledTableCell align="left">
-                        {row.profit}
-                      </StyledTableCell>
-                      <StyledTableCell align="left">
-                        {row.state}
-                      </StyledTableCell>
-                      <StyledTableCell align="left">
-                        {row.actions.split(",").map((action) => (
-                          <Button variant="contained" key={action}>
+              {rows.map((row, index) => {
+                return (
+                  <StyledTableRow hover tabIndex={-1} key={row.address}>
+                    <StyledTableCell align="center">
+                      {row.address}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.value}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.profit}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.state}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      {row.actions.split(",").map((action) => {
+                        console.log(action);
+                        return (
+                          <Button
+                            component={motion.button}
+                            whileTap={{ scale: 1.1 }}
+                            color={action === "Claim" ? "secondary" : "warning"}
+                            sx={{
+                              borderRadius: "25px",
+                            }}
+                            variant="contained"
+                            key={action}
+                          >
                             {action}
                           </Button>
-                        ))}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  );
-                },
-              )}
+                        );
+                      })}
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
