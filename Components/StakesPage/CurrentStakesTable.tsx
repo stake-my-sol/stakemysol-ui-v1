@@ -1,4 +1,5 @@
 import * as React from "react";
+import { styled } from "@mui/material/styles";
 import {
   TableRow,
   Button,
@@ -11,6 +12,7 @@ import {
   TableSortLabel,
   Paper,
 } from "@mui/material";
+import { tableCellClasses } from "@mui/material/TableCell";
 import { visuallyHidden } from "@mui/utils";
 
 interface Data {
@@ -52,6 +54,7 @@ const rows = [
     "Active",
     ["Claim", "Transfer"].join(","),
   ),
+
   // createData("Donut", 452, 25.0, 51, 4.9),
   // createData("Eclair", 262, 16.0, 24, 6.0),
   // createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
@@ -147,6 +150,26 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "white",
+    color: theme.palette.common.black,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -168,7 +191,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
-          <TableCell
+          <StyledTableCell
             key={headCell.id}
             align="left"
             padding="normal"
@@ -186,7 +209,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 </Box>
               ) : null}
             </TableSortLabel>
-          </TableCell>
+          </StyledTableCell>
         ))}
       </TableRow>
     </TableHead>
@@ -227,19 +250,27 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy)).map(
                 (row, index) => {
                   return (
-                    <TableRow hover tabIndex={-1} key={row.address}>
-                      <TableCell align="left">{row.address}</TableCell>
-                      <TableCell align="left">{row.value}</TableCell>
-                      <TableCell align="left">{row.profit}</TableCell>
-                      <TableCell align="left">{row.state}</TableCell>
-                      <TableCell align="left">
+                    <StyledTableRow hover tabIndex={-1} key={row.address}>
+                      <StyledTableCell align="left">
+                        {row.address}
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
+                        {row.value}
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
+                        {row.profit}
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
+                        {row.state}
+                      </StyledTableCell>
+                      <StyledTableCell align="left">
                         {row.actions.split(",").map((action) => (
                           <Button variant="contained" key={action}>
                             {action}
                           </Button>
                         ))}
-                      </TableCell>
-                    </TableRow>
+                      </StyledTableCell>
+                    </StyledTableRow>
                   );
                 },
               )}
