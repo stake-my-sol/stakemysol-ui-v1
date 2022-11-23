@@ -5,7 +5,6 @@ import {
 } from "@solana/wallet-adapter-react";
 import {
   PhantomWalletAdapter,
-  SlopeWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
@@ -42,7 +41,6 @@ function Wallet({ children }: WalletProps) {
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),
-      new SlopeWalletAdapter(),
       new SolflareWalletAdapter({ network: network }),
     ],
     [network],

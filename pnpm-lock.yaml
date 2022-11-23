@@ -11,7 +11,6 @@ specifiers:
   '@mui/styles': ^5.6.0
   '@mui/utils': ^5.10.14
   '@solana/wallet-adapter-base': ^0.9.5
-  '@solana/wallet-adapter-material-ui': ^0.16.14
   '@solana/wallet-adapter-react': ^0.15.4
   '@solana/wallet-adapter-react-ui': ^0.9.6
   '@solana/wallet-adapter-wallets': ^0.15.5
@@ -50,7 +49,6 @@ dependencies:
   '@mui/styles': 5.10.3_pu4u63mivchuo4cxizbfhkmjhq
   '@mui/utils': 5.10.14_react@18.2.0
   '@solana/wallet-adapter-base': 0.9.17_@solana+web3.js@1.62.0
-  '@solana/wallet-adapter-material-ui': 0.16.15_ns7luaab2lxkagf3a4e2maftse
   '@solana/wallet-adapter-react': 0.15.19_qofyrpdkhwoulglz7kgaqvkwrq
   '@solana/wallet-adapter-react-ui': 0.9.17_qofyrpdkhwoulglz7kgaqvkwrq
   '@solana/wallet-adapter-wallets': 0.15.5_qkf7lheqoxowxgmzwb37ulfzr4
@@ -2226,25 +2224,6 @@ packages:
       '@solana/wallet-adapter-base': 0.9.17_@solana+web3.js@1.62.0
       '@solana/web3.js': 1.62.0
       buffer: 6.0.3
-    dev: false
-
-  /@solana/wallet-adapter-material-ui/0.16.15_ns7luaab2lxkagf3a4e2maftse:
-    resolution: {integrity: sha512-CJDOPHStAQNA0is3ZvWCBB7VliVuypNC/eWWktXHsWwfaZz9HOR7Wo57LFfYUw1eAuHbUvpbNXY0oYI9JVq5ZQ==}
-    engines: {node: '>=16'}
-    peerDependencies:
-      '@mui/icons-material': '*'
-      '@mui/material': '*'
-      '@solana/web3.js': ^1.61.0
-      react: '*'
-      react-dom: '*'
-    dependencies:
-      '@mui/icons-material': 5.10.3_f6jkjs4d7pntlr4i2c6gb6jfwy
-      '@mui/material': 5.10.5_zfspu5f3mpmqhqfges52dn5dya
-      '@solana/wallet-adapter-base': 0.9.17_@solana+web3.js@1.62.0
-      '@solana/wallet-adapter-react': 0.15.19_qofyrpdkhwoulglz7kgaqvkwrq
-      '@solana/web3.js': 1.62.0
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@solana/wallet-adapter-mathwallet/0.9.12_@solana+web3.js@1.62.0:
