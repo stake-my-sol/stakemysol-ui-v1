@@ -3,9 +3,13 @@ import { NextPage } from "next";
 
 const Games: NextPage = () => {
   return (
-    <Paper>
-      <Container>Games</Container>
-    </Paper>
+    <Container maxWidth="md" sx={{ width: "90%", mt: 5 }}>
+      <Paper sx={{ p: 2 }}>
+        <Box sx={{ textAlign: "center" }}>Games</Box>
+        <Box sx={{ textAlign: "center" }}>Under Construction!</Box>
+        <Box sx={{ textAlign: "center" }}>stay tuned!</Box>
+      </Paper>
+    </Container>
   );
 };
 

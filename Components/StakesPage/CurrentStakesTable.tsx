@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { motion } from "framer-motion";
+import { sortFormattedNumber } from "../../utils/sortFormattedNumber";
 
-interface Data {
+interface TableData {
   address: string;
   value: string;
   profit: string;
@@ -28,7 +29,7 @@ function createData(
   profit: string,
   state: string,
   actions: string,
-): Data {
+): TableData {
   return {
     address,
     value,
@@ -40,18 +41,25 @@ function createData(
 
 const rows = [
   createData(
+    "gte...grw",
+    "305K SOL",
+    "3.7 SOL",
+    "Active",
+    ["Close", "Transfer"].join(","),
+  ),
+  createData(
     "Pst...fst",
     "305 SOL",
     "3.7 SOL",
     "Active",
-    ["Claim", "Transfer"].join(","),
+    ["Close", "Transfer"].join(","),
   ),
   createData(
     "h4x...bft",
     "3.5M SOL",
     "30k SOL",
     "Active",
-    ["Claim", "Transfer"].join(","),
+    ["Close", "Transfer"].join(","),
   ),
 
   // createData("Donut", 452, 25.0, 51, 4.9),
@@ -68,19 +76,21 @@ const rows = [
   // createData("Oreo", 437, 18.0, 63, 4.0),
 ];
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
+function descendingComparator(
+  a: TableData,
+  b: TableData,
+  orderBy: "value" | "profit",
+) {
+  if (orderBy === "value") {
+    return sortFormattedNumber(a.value, b.value);
   }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
+
+  return sortFormattedNumber(a.profit, b.profit);
 }
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof Data;
+  id: keyof TableData;
   label: string;
   numeric: boolean;
 }
@@ -168,48 +178,49 @@ export default function CurrentStakesTable() {
             <TableBody>
               {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-              {rows.map((row, index) => {
-                return (
-                  <StyledTableRow hover tabIndex={-1} key={row.address}>
-                    <StyledTableCell align="center">
-                      {row.address}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.value}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.profit}
-                    </StyledTableCell>
-                    <StyledTableCell align="center">
-                      {row.state}
-                    </StyledTableCell>
-                    <StyledTableCell
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      {row.actions.split(",").map((action) => {
-                        console.log(action);
-                        return (
-                          <Button
-                            component={motion.button}
-                            whileTap={{ scale: 1.1 }}
-                            color={action === "Claim" ? "secondary" : "warning"}
-                            sx={{
-                              borderRadius: "25px",
-                            }}
-                            variant="contained"
-                            key={action}
-                          >
-                            {action}
-                          </Button>
-                        );
-                      })}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
+              {rows
+                // .sort((a, b) => descendingComparator(a, b, "value"))
+                .map((row, index) => {
+                  return (
+                    <StyledTableRow hover tabIndex={-1} key={row.address}>
+                      <StyledTableCell align="center">
+                        {row.address}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        {row.value}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        {row.profit}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        {row.state}
+                      </StyledTableCell>
+                      <StyledTableCell
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        {row.actions.split(",").map((action) => {
+                          return (
+                            <Button
+                              component={motion.button}
+                              whileTap={{ scale: 1.1 }}
+                              color={action === "Close" ? "error" : "warning"}
+                              sx={{
+                                borderRadius: "25px",
+                              }}
+                              variant="contained"
+                              key={action}
+                            >
+                              {action}
+                            </Button>
+                          );
+                        })}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </TableContainer>
