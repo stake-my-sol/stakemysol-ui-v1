@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import _ from "lodash";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
@@ -20,6 +21,7 @@ import { Box, Button, Grid, Typography, Paper, Container } from "@mui/material";
 import { STAKE_ACCOUNT_SEED_PREFIX } from "../Constants";
 import { IUIStakeAccount, IPotentialSMSPubkeys } from "../@types";
 import CurrentStakesTable from "../Components/StakesPage/CurrentStakesTable";
+import getStakeAccounts from "../utils/getStakeAccounts";
 
 const Stakes: NextPage = () => {
   const { connection } = useConnection();
@@ -32,42 +34,18 @@ const Stakes: NextPage = () => {
 
   useEffect(() => {
     const fetchCurrentStakeAccounts = async () => {
-      if (!publicKey) return;
+      if (_.isNil(publicKey)) {
+        return setCurrentStakeAccounts([]);
+      }
 
-      const res = await connection.getParsedProgramAccounts(stakeProgramId, {
-        filters: [
-          {
-            memcmp: {
-              offset: 12,
-              bytes: publicKey.toBase58(),
-            },
-          },
-        ],
-      });
+      const parsedStakeAccounts = await getStakeAccounts(connection, publicKey);
 
-      let parsedStakeAccounts: IUIStakeAccount[] = [];
-      for (let i = 0; i < res.length; i++) {
-        const parsedData = res[i].account.data as ParsedAccountData;
-
-        const parsedStakeAccount: IUIStakeAccount = {
-          publicKey: new PublicKey(res[i].pubkey),
-          balance:
-            res[i].account.lamports -
-            parsedData.parsed.info.meta.rentExemptReserve,
-          status: parsedData.parsed.type,
-          withdrawAuthority: new PublicKey(
-            parsedData.parsed.info.meta.authorized.withdrawer,
-          ),
-          stakeAuthority: new PublicKey(
-            parsedData.parsed.info.meta.authorized.staker,
-          ),
-        };
-
-        parsedStakeAccounts.push(parsedStakeAccount);
+      if (_.isNil(parsedStakeAccounts)) {
+        return setCurrentStakeAccounts([]);
       }
 
       setCurrentStakeAccounts(parsedStakeAccounts);
-      setSeed(res.length.toString());
+      setSeed(parsedStakeAccounts.length.toString());
     };
     fetchCurrentStakeAccounts();
   }, [publicKey, connection, stakeProgramId, seed]);
