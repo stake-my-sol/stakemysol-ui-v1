@@ -3,7 +3,7 @@ function smartNumber(value: number, base: number = 1): string {
   value /= base;
 
   if (value < 1000) {
-    result = value.toString();
+    result = value.toFixed(4);
   } else if (value < 1000000) {
     result = (value / 1000).toFixed(2) + "K";
   } else if (value < 1000000000) {

@@ -140,14 +140,27 @@ export interface NetworkReducerAction {
   };
 }
 
-export interface IUIStakeAccount {
+export interface IRawParsedStakeAccount {
   publicKey: PublicKey;
   balance: number;
-  status: "uninitialized" | "initialized" | "delegated" | "rewardsPool";
+  status: "initialized" | "delegated" | "inactive" | "rewardsPool";
   // delegatedTo: PublicKey | null;
   // createdBySMS: boolean;
   stakeAuthority: PublicKey;
   withdrawAuthority: PublicKey;
+  // if delegated to a validator
+  activationEpoch?: number;
+  deactivationEpoch?: number;
+  delegatedStake?: number;
+  delegatedVoteAccount?: PublicKey;
+  creditsObserved?: number;
+}
+
+export interface IUIStakeAccount {
+  publicKey: PublicKey;
+  value: number;
+  profit: number;
+  status: "initialized" | "delegated" | "inactive" | "rewardsPool";
 }
 
 export interface IPotentialSMSPubkeys {

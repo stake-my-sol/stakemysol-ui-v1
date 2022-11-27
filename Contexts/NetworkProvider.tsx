@@ -1,18 +1,7 @@
-import {
-  useMemo,
-  createContext,
-  ReactNode,
-  Dispatch,
-  useReducer,
-  useEffect,
-} from "react";
+import { useMemo, createContext, ReactNode, useReducer } from "react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { INetworkContext, NetworkReducerAction, NetworkState } from "../@types";
 import { DEFAULT_NETWORK } from "../Constants";
-import {
-  loadFromLocalStorage,
-  saveToLocalStorage,
-} from "../utils/localStorage";
 
 interface NetworkContextProviderProps {
   children: ReactNode | ReactNode[];
