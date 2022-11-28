@@ -36,19 +36,19 @@ export default function MyApp(props: MyAppProps) {
           </Head>
           <NetworkProvider>
             <WalletProvider>
-              <GeneralNetworkDataProvider>
-                <SearchContextProvider>
-                  <SelectedValidatorsProvider>
-                    <ThemeProvider theme={theme}>
-                      <CssBaseline />
-                      <Layout>
-                        <Component {...pageProps} />
-                        <Analytics />
-                      </Layout>
-                    </ThemeProvider>
-                  </SelectedValidatorsProvider>
-                </SearchContextProvider>
-              </GeneralNetworkDataProvider>
+              {/* <GeneralNetworkDataProvider> */}
+              <SearchContextProvider>
+                <SelectedValidatorsProvider>
+                  <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Layout>
+                      <Component {...pageProps} />
+                      <Analytics />
+                    </Layout>
+                  </ThemeProvider>
+                </SelectedValidatorsProvider>
+              </SearchContextProvider>
+              {/* </GeneralNetworkDataProvider> */}
             </WalletProvider>
           </NetworkProvider>
         </CacheProvider>

@@ -20,11 +20,10 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import SearchForm from "./SearchForm/SearchForm";
-import ValidatorsSelection from "./DelegationForm/DelegationForm";
+
 import { NetworkContext } from "../../Contexts/NetworkProvider";
 import { SearchContext } from "../../Contexts/SearchContextProvider";
-// import { GeneralNetworkDataContext } from "../src/Contexts/GeneralNetworkDataProvider";
+import GeneralNetworkDataProvider from "../../Contexts/GeneralNetworkDataProvider";
 import Progress from "../Progress";
 
 const steps = ["Search", "Stake"];
@@ -203,7 +202,7 @@ export default function SearchPageLayout({ children }: props) {
   };
 
   return (
-    <>
+    <GeneralNetworkDataProvider>
       <Head>
         <title>{activeStep === 0 ? "Search" : "Found Validators"}</title>
       </Head>
@@ -296,6 +295,6 @@ export default function SearchPageLayout({ children }: props) {
           )}
         </Paper>
       </Container>
-    </>
+    </GeneralNetworkDataProvider>
   );
 }
